@@ -20,17 +20,17 @@ public class Ship {
     public int score;
     public int highestScore;
     private int combo;
+    private int shots;
 
-    public static void main(String[] args) {
 
-    }
 
     public void init() {
         x = 450;
-        y = 530;
+        y = 525;
         score = 0;
         combo = 1;
         life = 3;
+        shots = 1;
     }
 
     public void move(char a) {

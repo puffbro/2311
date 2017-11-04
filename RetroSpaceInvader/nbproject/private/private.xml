@@ -5,13 +5,14 @@
         <group name="Java"/>
         <group name="EE2311 (Java)"/>
         <group>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/Ship.java</file>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/Laser.java</file>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/UFO.java</file>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/ConsoleDemo.java</file>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/GameDemo.java</file>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/Alien.java</file>
-            <file>file:/C:/Users/eeuser/Documents/NetBeansProjects/RetroSpaceInvader/src/student/demo/Music.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/GameState.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Ship.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Laser.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Alien.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/GameDemo.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Music.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/UFO.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/ConsoleDemo.java</file>
         </group>
     </open-files>
 </project-private>

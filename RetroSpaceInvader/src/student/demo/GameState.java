@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 
-
 /**
  *
  * @author PuFF
@@ -48,7 +47,7 @@ public class GameState {
     public void init() {
         alien.init();
         ship.init();
-        timer = 5;
+        timer = 5;              //make the first UFO spawn at 5 sec, other UFO spawns every 10s as it takes ~5s for them to travel cross screen.
         music.stopBGM();
         music.playBGM();
         laser.destroyLaser();
@@ -64,15 +63,11 @@ public class GameState {
         if (timer % 10 == 0) {
             ufo.init();
         }
-        //check collison
+
         ufoCollision();
         alienCollision();
-
-        //check combo
         checkloseCombo();
-        //draw image
         drawRunning();
-
 
     }
 
@@ -85,7 +80,7 @@ public class GameState {
     }
 
     public void win() {
-        ufo.init();
+        ufo.init();     //remove ufo from screen
         music.stopBGM();
         Console.getInstance()
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
@@ -102,6 +97,24 @@ public class GameState {
                 .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
                 .drawText(300, 100, "You're Dead", new Font("Comic Sans MS", Font.BOLD, 60), Color.RED)
                 .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
+    }
+
+    public void drawRunning() {
+
+        Console.getInstance()
+                .drawText(540, 590, "Score:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(400, 590, "Combo:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
+        
+        drawLife();
+        drawLaser();
+        drawShip();
+        drawAlien();
+        drawUFO();
+
     }
 
     public void drawAlien() {
@@ -132,29 +145,6 @@ public class GameState {
         if (ship.getLife() == 2) {
             Console.getInstance().drawImage(12, 570, ship.getimg2());
         }
-    }
-
-    public void drawRunning() {
-
-        Console.getInstance()
-                .drawText(540, 590, "Score:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(400, 590, "Combo:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
-        drawLaser();
-        drawShip();
-        drawAlien();
-        drawUFO();
-        drawLife();
-
-    }
-
-    public void drawWin() {
-    }
-
-    public void drawLose() {
     }
 
     public void moveR() {
