@@ -23,7 +23,7 @@ public class Laser {
     }
 
     public boolean onScreen() {
-        if (y > 50) {
+        if (y > -50) {
             return true;
         } else {
             return false;
