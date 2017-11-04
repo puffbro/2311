@@ -12,6 +12,7 @@ Drive the spaceship with the left and right keys, and fire with the space key.
 Score system and score UI.  
 Save and show the highest score.  
 Music and sound effects.  
+Rework gameState class. 
 
 ToDo:   
 Aliens can fire back at the spaceship.  
@@ -21,3 +22,4 @@ More wave.
 
 Extra:    
 Rework Alien class to arraylist. 
+Show Hitbox.  
