@@ -19,6 +19,7 @@ public class UFO {
     private int height = 60;
     private int width = 50;
     private boolean alive;
+    
 
     public static void main(String[] args) {
 

@@ -25,21 +25,17 @@ public class GameDemo extends Game {
     /*
     You can declare any data fields here for your game as usual.
      */
-    private Image logo = Console.loadImage("/student/demo/img/logo.png");
-    private Image img2 = Console.loadImage("/student/demo/img/shiplife.png");
-    private int i = 0;
-    private boolean start;
-    private boolean pause = false;
-    private boolean lose = false;
-    private boolean win = false;
-    private Alien alien = new Alien();
-    private Ship ship = new Ship();
-    private Laser laser = new Laser();
-    private UFO ufo = new UFO();
-    private int timer;
-    private Music music = new Music();
-    private boolean isExplosion = false;
-    private Image[] lifeArray;
+    private GameState gameState = new GameState();
+
+    private static enum State {
+        MENU,
+        RUNNING,
+        INIT,
+        PAUSE,
+        WIN,
+        LOSE,
+    }
+    private static State state;
 
     /*
     Main method
@@ -65,6 +61,8 @@ public class GameDemo extends Game {
                 .setBackground(Console.loadImage("/student/demo/img/bg.png")) // set background image
                 .start();                                                   // start game loop
 
+        state = state.MENU; //initiate default state 
+
     }
 
     /**
@@ -83,118 +81,34 @@ public class GameDemo extends Game {
     @Override
     protected void cycle() {
 
-        i = ++i % 20;       // 0 to 19
+        gameState.Frame();  //frame function that counts frames and time
+        
+        switch (state) {
+            case MENU:
+                gameState.startMenu();
+                break;
 
-        if (!start) {
-            music.stopBGM();
-            Console.getInstance()
-                    .drawImage(280, 10, logo)
-                    .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                    .drawText(380, 250, "New Game", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
+            case PAUSE:
+                gameState.pause();
+                break;
 
-        } else if (pause) {
-            Console.getInstance()
-                    .drawRectangle(360, 105, 250, 60, Color.DARK_GRAY, 20)
-                    .drawText(380, 150, "Resume", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
-                    .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                    .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
-        } else {
-            music.playBGM();
-
-            if (alien.reachBottom()) {
-                lose = true;
-            }
-            if (alien.allDead()) {
-                win = true;
-            }
-            if (!win && !lose) {
-
-                if (i == 19) {
-                    timer += 1;
-                    if (timer >= 30) {
-                        ufo.init();
-                        timer = 0;
-                    }
+            case RUNNING:
+                gameState.running();
+                if (gameState.checkWin()) {
+                    state = state.WIN;
                 }
-                alien.move();
-                ufo.move();
-                laser.move();
-            }
-            if (laser.gety() < 0 && laser.gety() > -100) {
-                ship.loseCombo();
-            }
-
-            if (alien.collision(laser.getx(), laser.gety())) {
-                music.playInvaderKilled();
-                laser.destroyLaser();
-                ship.addScore(1000);
-                if (ship.score > ship.highestScore) {
-                    ship.setHighestScore(ship.score);
+                if (gameState.checkLose()) {
+                    state = state.LOSE;
                 }
-                ship.addCombo(1);
-            }
-            if (ufo.collision(laser.getx(), laser.gety())) {
-                music.playInvaderKilled();
-                laser.destroyLaser();
-                ship.addScore(10000);
-                if (ship.score > ship.highestScore) {
-                    ship.setHighestScore(ship.score);
-                }
-                ship.addCombo(10);
-            }
-            if (isExplosion) {
-                ship.loseLife();
-                if (ship.getLife() == 0) {
-                    lose = true;
-                }
-                isExplosion = false;
-            }
+                break;
 
-            for (int j = 0; j < 55; j++) {
-                if (alien.getAlive(j) == true) {
-                    console.drawImage(alien.getx(j), alien.gety(j), alien.getimg(i / 10));
-                }
-            }
-            if (ufo.getAlive()) {
-                console.drawImage(ufo.getx(), ufo.gety(), ufo.getimg(i / 10));
-            }
+            case WIN:
+                gameState.win();
+                break;
 
-            console.drawImage(laser.getx(), laser.gety(), laser.getimg());
-            console.drawImage(ship.getx(), ship.gety(), ship.getimg());
-
-            Console.getInstance()
-                    .drawText(540, 590, "Score:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                    .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                    .drawText(400, 590, "Combo:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                    .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                    .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                    .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
-
-            if (ship.getLife() == 3) {
-                console.drawImage(12, 570, ship.getimg2());
-                console.drawImage(40, 570, ship.getimg2());
-            }
-            if (ship.getLife() == 2) {
-                console.drawImage(12, 570, ship.getimg2());
-            }
-
-            if (win) {
-                music.stopBGM();
-                ufo.init();
-                Console.getInstance()
-                        .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                        .drawText(380, 250, "New Game", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
-                        .drawText(350, 100, "You Win!", new Font("Comic Sans MS", Font.BOLD, 60), Color.YELLOW)
-                        .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
-            }
-            if (lose) {
-                music.stopBGM();
-                Console.getInstance()
-                        .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                        .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
-                        .drawText(300, 100, "You're Dead", new Font("Comic Sans MS", Font.BOLD, 60), Color.RED)
-                        .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
-            }
+            case LOSE:
+                gameState.lose();
+                break;
         }
     }
 
@@ -206,43 +120,44 @@ public class GameDemo extends Game {
     protected void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                if (!pause && !win && !lose) {
-                    music.playMove();
-                    ship.move('L');
+                if (state == state.RUNNING) {
+                    gameState.moveL();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (!pause && !win && !lose) {
-                    music.playMove();
-                    ship.move('R');
+                if (state == state.RUNNING) {
+                    gameState.moveR();
                 }
                 break;
             case KeyEvent.VK_L:
-                lose = true;
-                win = false;
+                if (state == state.RUNNING) {
+                    state = state.LOSE;
+                }
 
                 break;
             case KeyEvent.VK_W:
-                win = true;
-                lose = false;
-                alien.killAll();
+                if (state == state.RUNNING) {
+                    state = state.WIN;
+                }
                 break;
             case KeyEvent.VK_SPACE:
-                if (!laser.onScreen()) {
-                    if (!pause && !win && !lose) {
-                        music.playShoot();
-                        laser.init(ship.getx(), ship.gety());
-                    }
+                if (state == state.RUNNING) {
+                    gameState.shoot();
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
-                if (start && !win && !lose) {
-                    pause = !pause;
+                switch (state) {
+                    case RUNNING:
+                        state = state.PAUSE;
+                        break;
+                    case PAUSE:
+                        state = state.RUNNING;
+                        break;
                 }
                 break;
             case KeyEvent.VK_E:
-                if (!isExplosion) {
-                    isExplosion = true;
+                if (state == state.RUNNING) {
+                    gameState.loseLife();
                 }
                 break;
         }
@@ -257,49 +172,40 @@ public class GameDemo extends Game {
     @Override
     protected void mouseClicked(MouseEvent e) {
         System.out.println("Click on (" + e.getX() + "," + e.getY() + ")");
-        if (!start) {
-            if (checkMouse(e, 360, 205, 600, 260)) {
-                alien.init();
-                ship.init();
-                timer = 15;
-                start = true;
-                win = false;
-                lose = false;
-            }
-        } else if (pause) {     //pause menu
-            if (checkMouse(e, 360, 105, 600, 160)) {  //resume
-                pause = false;
-            }
-            if (checkMouse(e, 360, 205, 600, 260)) {  //retry
-                music.stopBGM();
-                music.playBGM();
-                alien.init();
-                ship.init();
-                laser.destroyLaser();
-                ufo.kill();
-                timer = 15;
-                pause = false;
-            }
-        } else if (win || lose) {       //win or lose screen
-            if (checkMouse(e, 360, 205, 600, 260)) {        //retry or new game
-                alien.init();
-                ship.init();
-                laser.destroyLaser();
-                ufo.kill();
-                timer = 15;
-                win = false;
-                lose = false;
-            }
+
+        switch (state) {
+            case MENU:
+                if (checkMouse(e, 360, 205, 600, 260)) {    //Start button
+                    gameState.init();
+                    state = State.RUNNING;
+                }
+                break;
+            case PAUSE:
+                if (checkMouse(e, 360, 105, 600, 160)) {    //Resume
+                    state = state.RUNNING;
+                } else if (checkMouse(e, 360, 205, 600, 260)) {     //Retry
+                    gameState.init();
+                    state = state.RUNNING;
+                }
+                break;
+            case WIN:
+                if (checkMouse(e, 360, 205, 600, 260)) {     //New game
+                    gameState.init();
+                    state = state.RUNNING;
+                }
+                break;
+            case LOSE:
+                if (checkMouse(e, 360, 205, 600, 260)) {    //Retry
+                    gameState.init();
+                    state = state.RUNNING;
+                }
+                break;
         }
 
     }
 
-    protected boolean checkMouse(MouseEvent e, int a, int b, int x, int y) {
-        if (a < e.getX() && e.getX() < x && e.getY() > b && e.getY() < y) {
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean checkMouse(MouseEvent e, int a, int b, int x, int y) {        //ab = cood of top left, xy = cood of bottom right
+        return a < e.getX() && e.getX() < x && e.getY() > b && e.getY() < y;
     }
 
 }

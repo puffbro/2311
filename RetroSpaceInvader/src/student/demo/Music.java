@@ -61,7 +61,7 @@ public class Music {
     public void stopBGM() {
         try {
             if (bgmIsPlaying && bgmOn) {   // stop playing BGM if it is playing
-                BGMusic.loop();             // loop the BGM
+                BGMusic.stop();             // loop the BGM
                 bgmIsPlaying = false;        // set false represent the BGM is started to stop
             }
 
