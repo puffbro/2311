@@ -21,5 +21,5 @@ Increase the number of shots by one when a UFO is defeated.
 More wave.  
 
 Extra:    
-Rework Alien class to arraylist. 
+Rework Alien class to arraylist.  
 Show Hitbox.  
