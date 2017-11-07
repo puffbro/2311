@@ -82,7 +82,7 @@ public class GameDemo extends Game {
     protected void cycle() {
 
         gameState.Frame();  //frame function that counts frames and time
-        
+
         switch (state) {
             case MENU:
                 gameState.startMenu();
@@ -158,6 +158,11 @@ public class GameDemo extends Game {
             case KeyEvent.VK_E:
                 if (state == state.RUNNING) {
                     gameState.loseLife();
+                }
+                break;
+            case KeyEvent.VK_H:
+                if (state == state.RUNNING) {
+                    gameState.toggleHitbox();
                 }
                 break;
         }

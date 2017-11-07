@@ -64,7 +64,7 @@ public class ConsoleDemo {
         Console.getInstance().drawImage(100, 400, img2);
         Console.getInstance().drawImage(100, 500, img3);
         Console.getInstance().drawCircle(500, 400, 128, 128, Color.GREEN)
-                .drawRectangle(500, 200, 128, 128, Color.RED)               // x=500, y=200, width=128, height=128
+                .drawRectangle(500, 200, 128, 1, Color.RED)               // x=500, y=200, width=128, height=128
                 .drawRectangle(700, 200, 128, 128, Color.CYAN, 20)          // rounded rectangle with arc radius 20
                 .drawText(50, 100, "Draw text at (50,100) with default color and font")
                 .drawText(50, 150, "Draw text at (50,150) with different color and font", new Font("Arial", Font.BOLD, 16), Color.YELLOW);

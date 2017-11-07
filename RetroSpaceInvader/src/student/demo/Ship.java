@@ -20,8 +20,7 @@ public class Ship {
     public int score;
     public int highestScore;
     private int combo;
-    private int shots = 1;
-
+    private int shots;
 
     public void init() {
         x = 450;
@@ -37,7 +36,10 @@ public class Ship {
     }
 
     public void addShots(int a) {
-        shots += a;
+        if (shots < 5) {
+            shots += a;
+        }
+
     }
 
     public void loseShots() {
