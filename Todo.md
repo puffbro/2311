@@ -6,7 +6,7 @@ Requirements
 
 ToDo:   
 Aliens can fire back at the spaceship.  
-**Done**  Increase the number of shots by one when a UFO is defeated.  
+Increase the number of shots by one when a UFO is defeated.  **Done**  
 4 Shelters each with 5hp, block both player and alien shots.  
 More wave.  
 
