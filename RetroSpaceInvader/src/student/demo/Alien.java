@@ -1,13 +1,8 @@
 package student.demo;
 
 import game.v2.Console;
-import game.v2.Game;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
-import java.io.IOException;
-import java.util.Locale;
-import javax.swing.JOptionPane;
+
 
 
 public class Alien {

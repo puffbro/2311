@@ -68,7 +68,7 @@ public class ConsoleDemo {
                 .drawRectangle(700, 200, 128, 128, Color.CYAN, 20)          // rounded rectangle with arc radius 20
                 .drawText(50, 100, "Draw text at (50,100) with default color and font")
                 .drawText(50, 150, "Draw text at (50,150) with different color and font", new Font("Arial", Font.BOLD, 16), Color.YELLOW);
-
+        
         /*
          To reduce screen flicker, all drawXXX() methods write to an off-screen buffer. You must call update() to flush the painting 
          from buffer to screen.
