@@ -23,7 +23,7 @@ public class GameState {
     private Alien[] aliens = new Alien[55];
     private Laser[] lasers = new Laser[5];
     private Ship ship = new Ship();
-    private Shield shield =new Shield();
+    
     private int alienLeft;
     private int timer = 0;
     private int frame = 0;
@@ -148,7 +148,7 @@ public class GameState {
         drawShip();
         drawAlien();
         drawUFO();
-        drawShield();
+        
         
         if (Hitbox) {
             drawHitbox();
@@ -164,11 +164,7 @@ public class GameState {
         }
     }
     
-    public void drawShield() {
-       for (int k = 0; k < 20; k++) {
-           Console.getInstance().drawImage(shield.getx(k), shield.gety(k), shield.getimg(k));
-       }
-    }
+
     
     public void drawShip() {
         Console.getInstance().drawImage(ship.getx(), ship.gety(), ship.getimg());
