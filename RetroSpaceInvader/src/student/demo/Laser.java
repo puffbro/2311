@@ -9,18 +9,18 @@ public class Laser {
     private Image img = Console.loadImage("/student/demo/img/Laser.png");
     private int x = 0;
     private int y = -100;
+   
 
-    public static void main(String[] args) {
-    }
 
     public void init(int a, int b) {
         x = a - 8;
         y = b;
     }
 
-    public void move() {
-        y -= 13;
+    public void move(int a) {
+        y = y + a;
     }
+    
 
     public boolean onScreen() {
         if (y > -50) {

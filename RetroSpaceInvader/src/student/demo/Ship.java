@@ -20,8 +20,7 @@ public class Ship {
     public int score;
     public int highestScore;
     private int combo;
-    private int shots;
-
+    private int shots = 1;
 
 
     public void init() {
@@ -30,6 +29,18 @@ public class Ship {
         score = 0;
         combo = 1;
         life = 3;
+        shots = 1;
+    }
+
+    public int getShots() {
+        return shots;
+    }
+
+    public void addShots(int a) {
+        shots += a;
+    }
+
+    public void loseShots() {
         shots = 1;
     }
 

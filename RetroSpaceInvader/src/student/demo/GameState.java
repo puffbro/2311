@@ -9,6 +9,7 @@ import game.v2.Console;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,7 @@ public class GameState {
     private Music music = new Music();
     private UFO ufo = new UFO();
     private Alien alien = new Alien();
-    private Laser laser = new Laser();
+    private Laser[] lasers = new Laser[5];
     private Ship ship = new Ship();
     private int timer = 0;
     private int frame = 0;
@@ -50,7 +51,10 @@ public class GameState {
         timer = 5;              //make the first UFO spawn at 5 sec, other UFO spawns every 10s as it takes ~5s for them to travel cross screen.
         music.stopBGM();
         music.playBGM();
-        laser.destroyLaser();
+        for (int i = 0; i < 5; i++) {
+            lasers[i] = new Laser();
+            lasers[i].destroyLaser();
+        }
         ufo.kill();
     }
 
@@ -59,7 +63,9 @@ public class GameState {
 
         alien.move();
         ufo.move();
-        laser.move();
+        for (int i = 0; i < 5; i++) {
+            lasers[i].move(-13);           //-13 pixel every frame;
+        }
         if (timer % 10 == 0) {
             ufo.init();
         }
@@ -108,7 +114,7 @@ public class GameState {
                 .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
-        
+
         drawLife();
         drawLaser();
         drawShip();
@@ -134,7 +140,9 @@ public class GameState {
     }
 
     public void drawLaser() {
-        Console.getInstance().drawImage(laser.getx(), laser.gety(), laser.getimg());
+        for (int i = 0; i < 5; i++) {
+            Console.getInstance().drawImage(lasers[i].getx(), lasers[i].gety(), lasers[i].getimg());
+        }
     }
 
     public void drawLife() {
@@ -155,46 +163,58 @@ public class GameState {
     public void moveL() {
         ship.move('L');
         music.playMove();
+
     }
 
     public void shoot() {
 
-        if (!laser.onScreen()) {
+        for (int i = 0; i < ship.getShots(); i++) {
 
-            music.playShoot();
-            laser.init(ship.getx(), ship.gety());
-
+            if (!lasers[i].onScreen()) {
+                music.playShoot();
+                lasers[i].init(ship.getx(), ship.gety());
+                break;                  //make sure only one shot is fire every time, prevent 5 shots at once.
+            }
         }
     }
 
     public void ufoCollision() {
-        if (ufo.collision(laser.getx(), laser.gety())) {
-            music.playInvaderKilled();
-            laser.destroyLaser();
-            ship.addScore(10000);
-            ufo.kill();
-            if (ship.score > ship.highestScore) {
-                ship.setHighestScore(ship.score);
+        
+        for (int i = 0; i < 5; i++) {
+            if (ufo.collision(lasers[i].getx(), lasers[i].gety())) {
+                music.playInvaderKilled();
+                lasers[i].destroyLaser();
+                ship.addScore(10000);
+                ship.addShots(1);
+                ufo.kill();
+                if (ship.score > ship.highestScore) {
+                    ship.setHighestScore(ship.score);
+                }
+                ship.addCombo(10);
             }
-            ship.addCombo(10);
         }
     }
 
     public void alienCollision() {
-        if (alien.collision(laser.getx(), laser.gety())) {
-            music.playInvaderKilled();
-            laser.destroyLaser();
-            ship.addScore(1000);
-            if (ship.score > ship.highestScore) {
-                ship.setHighestScore(ship.score);
+        for (int i = 0; i < 5; i++) {
+            if (alien.collision(lasers[i].getx(), lasers[i].gety())) {
+                music.playInvaderKilled();
+                lasers[i].destroyLaser();
+                ship.addScore(1000);
+                if (ship.score > ship.highestScore) {
+                    ship.setHighestScore(ship.score);
+                }
+                ship.addCombo(1);
             }
-            ship.addCombo(1);
         }
     }
 
     public void checkloseCombo() {
-        if (laser.gety() < 0 && laser.gety() > -100) {
-            ship.loseCombo();
+
+        for (int i = 0; i < 5; i++) {
+            if (lasers[i].gety() < 0 && lasers[i].gety() > -100) {
+                ship.loseCombo();
+            }
         }
     }
 
