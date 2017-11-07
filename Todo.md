@@ -25,7 +25,7 @@ Extra:
 Show Hitbox.  
 
 
-**Increase the number of shots by one when a UFO is defeated.**
-Setting up array of lasers with:
-private Laser[] lasers = new Laser[5];  //max 5 shot
-for(0-4)lasers[i] = new Laser();    //need to call it for every element**
+**Increase the number of shots by one when a UFO is defeated.**   
+Setting up array of lasers with:    
+private Laser[] lasers = new Laser[5];  //max 5 shot    
+for(0-4)lasers[i] = new Laser();    //need to call it for every element**   
