@@ -114,7 +114,13 @@ public class GameState {
     }
 
     public void nextStage() {
-
+        stage=2;
+        int shotNumber=ship.getShots();
+        init();
+        while(shotNumber>1){
+            ship.addShots(1);
+            shotNumber--;
+        }
     }
 
     public void pause() {
