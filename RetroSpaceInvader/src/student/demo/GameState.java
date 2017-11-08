@@ -56,7 +56,7 @@ public class GameState {
         if (stage == 1) {
             speed = 1;
         } else if (stage == 2) {
-            speed = 2;
+            speed = 4;
         }
 
         alienLeft = 55;
@@ -312,17 +312,27 @@ public class GameState {
     }
 
     public void alienSpeed() {
-
-        if (alienLeft > 30) {
-            speed = 1;
-        } else if (alienLeft > 15) {
-            speed = 2;
-        } else if (alienLeft > 5) {
-            speed = 3;
-        } else if (alienLeft > 0) {
-            speed = 4;
+        if (stage == 1) {
+            if (alienLeft >= 30) {
+                speed = 1;
+            } else if (alienLeft >= 15 && alienLeft < 30) {
+                speed = 2;
+            } else if (alienLeft >= 5 && alienLeft < 15) {
+                speed = 3;
+            } else if (alienLeft >= 0 && alienLeft < 5) {
+                speed = 4;
+            }
+        } else if (stage == 2) {
+            if (alienLeft >= 30) {
+                speed = 4;
+            } else if (alienLeft >= 15 && alienLeft < 30) {
+                speed = 5;
+            } else if (alienLeft >= 5 && alienLeft < 15) {
+                speed = 6;
+            } else if (alienLeft >= 0 && alienLeft < 5) {
+                speed = 7;
+            }
         }
-
         for (int i = 0; i < 55; i++) {
             aliens[i].setSpeed(speed);
         }
