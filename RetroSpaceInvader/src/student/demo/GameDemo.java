@@ -94,6 +94,7 @@ public class GameDemo extends Game {
 
             case RUNNING:
                 gameState.running();
+
                 if (gameState.checkWin()) {
                     state = state.WIN;
                 }
@@ -145,6 +146,11 @@ public class GameDemo extends Game {
                     gameState.shoot();
                 }
                 break;
+            case KeyEvent.VK_N:
+                if (state == state.RUNNING) {
+                    gameState.nextStage();
+                }
+                break;
             case KeyEvent.VK_ESCAPE:
                 switch (state) {
                     case RUNNING:
@@ -181,7 +187,7 @@ public class GameDemo extends Game {
         switch (state) {
             case MENU:
                 if (checkMouse(e, 360, 205, 600, 260)) {    //Start button
-                    gameState.init();
+                    gameState.retry();
                     state = State.RUNNING;
                 }
                 break;
@@ -189,19 +195,19 @@ public class GameDemo extends Game {
                 if (checkMouse(e, 360, 105, 600, 160)) {    //Resume
                     state = state.RUNNING;
                 } else if (checkMouse(e, 360, 205, 600, 260)) {     //Retry
-                    gameState.init();
+                    gameState.retry();
                     state = state.RUNNING;
                 }
                 break;
             case WIN:
                 if (checkMouse(e, 360, 205, 600, 260)) {     //New game
-                    gameState.init();
+                    gameState.retry();
                     state = state.RUNNING;
                 }
                 break;
             case LOSE:
                 if (checkMouse(e, 360, 205, 600, 260)) {    //Retry
-                    gameState.init();
+                    gameState.retry();
                     state = state.RUNNING;
                 }
                 break;
