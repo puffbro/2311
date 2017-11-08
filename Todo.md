@@ -9,7 +9,7 @@ Aliens can fire back at the spaceship.
 Increase the number of shots by one when a UFO is defeated.**Done**  
 4 Shelters each with 5hp, block both player and alien shots.    **only draw the shield,can you help to write hitboox**  
 
-More wave.  
+More wave.  **done** **the number of shots in 2nd will be same as 1st stage**
 
 **Detasils on increase no. of shots**   
 Setting up array of lasers with:    
