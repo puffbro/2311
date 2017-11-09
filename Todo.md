@@ -14,10 +14,8 @@ Tweak bullet size.(Too small)
 Tweak shield. (Change to all white maybe)   
 
 Extra:    
-Show key for testing (Debug mode?)
-More powerup?
-
-
+Show key for testing (Debug mode?)    
+More powerup?   
 
 Done:   
 At least one wave 5x11 alien.  
