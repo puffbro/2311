@@ -241,7 +241,7 @@ public class GameState {
             Console.getInstance().drawImage(bullets[i].getx(), bullets[i].gety(), bullets[i].getimg());
         }
     }
-    
+
     public void drawLife() {
         if (ship.getLife() == 3) {
             Console.getInstance().drawImage(12, 570, ship.getimg2());
@@ -315,14 +315,17 @@ public class GameState {
 
     public void alienShot() {
 
-        if (r.nextInt(30) == 1) {
+        if (r.nextInt(100) == 1) {
             for (int i = 0; i < 10; i++) {
                 if (!bullets[i].onScreen()) {
                     bullets[i] = new Bullets();
                     bullets[i].destroyBullets();
-                    int randomAlien = r.nextInt(54);
-                    int alienX =aliens[randomAlien].getx();
-                    int alienY =aliens[randomAlien].gety();
+                    int randomAlien;
+                    do {
+                        randomAlien = r.nextInt(54);
+                    } while (aliens[randomAlien].getAlive() == false);
+                    int alienX = aliens[randomAlien].getx();
+                    int alienY = aliens[randomAlien].gety();
                     music.playShoot();
                     bullets[i].bulletInit(alienX, alienY);
                     break;
@@ -330,11 +333,11 @@ public class GameState {
             }
         }
     }
-    
-    public void shootTest(){
-    
-    
+
+    public void shootTest() {
+
     }
+
     public void ufoCollision() {
 
         for (int i = 0; i < 5; i++) {
@@ -380,7 +383,7 @@ public class GameState {
         }
 
     }
-    
+
     public void shieldCollision() {
 
         for (int i = 0; i < 5; i++) {
