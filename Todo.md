@@ -3,18 +3,19 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
-Shield Hitbox
+
 
 Recent Updates:    
 Added stage screen.
-2nd Stage faster, shots remains.
+2nd Stage faster, shots remains.    
+Shield Hitbox.(Need tweaking)    
 
 Requirements:
 
 ToDo:   
 Aliens can fire back at the spaceship.    
 Increase the number of shots by one when a UFO is defeated.**Done**  
-4 Shelters each with 5hp, block both player and alien shots.    **only draw the shield,can you help to write hitboox**  
+4 Shelters each with 5hp, block both player and alien shots.    **Done, needs tweak**  
 More wave.  **done, the number of shots in 2nd will be same as 1st stage,speed in 2nd will be faster**
 
 
