@@ -21,6 +21,10 @@ public class Ship {
     public int highestScore;
     private int combo;
     private int shots;
+    private int hbx;
+    private int hby;
+    private int height = 48;
+    private int width = 48;
 
     public void init() {
         x = 450;
@@ -55,6 +59,37 @@ public class Ship {
         }
     }
 
+    public boolean collision(int a, int b, int w, int h) {
+
+        hbx = x ; //Top Left x cood of ship hitbox
+        hby = y ; //Top Left y cood of ship hitbox
+
+        if (a - hbx <= width && a - hbx >= -w && b - hby <= height && b - hby >= -h ) {
+
+            return true;
+        }
+
+        return false;
+
+    }
+    
+     public int getHbx() {
+        return hbx;
+    }
+
+    public int getHby() {
+        return hby;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+    
+    
     public void addScore(int a) {
         score += a * combo;
     }
