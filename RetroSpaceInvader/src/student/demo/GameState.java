@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -22,6 +23,7 @@ public class GameState {
     private UFO ufo = new UFO();
     private Alien[] aliens = new Alien[55];
     private Laser[] lasers = new Laser[5];
+    private Bullets[] bullets = new Bullets[10];
     private Ship ship = new Ship();
     private int stage = 1;
     private Shield shield = new Shield();
@@ -31,6 +33,7 @@ public class GameState {
     private int i;
     private int speed;
     private boolean Hitbox = false;
+    Random r = new Random();
 
     public void Frame() {
         frame = ++frame % 50;       //50 frame as a cycle
@@ -78,6 +81,10 @@ public class GameState {
             lasers[i] = new Laser();
             lasers[i].destroyLaser();
         }
+        for (int i = 0; i < 10; i++) {
+            bullets[i] = new Bullets();
+            bullets[i].destroyBullets();
+        }
         shield.initshield();
         ufo.kill();
     }
@@ -101,6 +108,9 @@ public class GameState {
             for (int i = 0; i < 5; i++) {
                 lasers[i].move(-10);           //-13 pixel every frame;
             }
+            for (int i = 0; i < 10; i++) {
+                bullets[i].bulletMove(10);
+            }
             if (timer % 10 == 0) {              //every 10s
                 ufo.init();
             }
@@ -108,8 +118,10 @@ public class GameState {
             ufoCollision();
             alienCollision();
             shieldCollision();
+            spaceshipCollision();
             checkloseCombo();
             alienSpeed();
+            alienShot();
             System.out.println(timer);
 
             drawRunning();
@@ -181,6 +193,7 @@ public class GameState {
         drawAlien();
         drawUFO();
         drawShield();
+        drawBullets();
 
         if (Hitbox) {
             drawHitbox();
@@ -223,6 +236,12 @@ public class GameState {
         }
     }
 
+    public void drawBullets() {
+        for (int i = 0; i < 10; i++) {
+            Console.getInstance().drawImage(bullets[i].getx(), bullets[i].gety(), bullets[i].getimg());
+        }
+    }
+    
     public void drawLife() {
         if (ship.getLife() == 3) {
             Console.getInstance().drawImage(12, 570, ship.getimg2());
@@ -253,8 +272,13 @@ public class GameState {
                 drawBox(lasers[i].getHbx(), lasers[i].getHby(), lasers[i].getWidth(), lasers[i].getHeight());
             }
         }
+        for (int i = 0; i < 10; i++) {
+            if (bullets[i].onScreen()) {
+                drawBox(bullets[i].getHbx(), bullets[i].getHby(), bullets[i].getWidth(), bullets[i].getHeight());
+            }
+        }
         drawBox(ufo.getHbx(), ufo.getHby(), ufo.getWidth(), ufo.getHeight());
-
+        drawBox(ship.getHbx(), ship.getHby(), ship.getWidth(), ship.getHeight());
         for (int i = 0; i < 20; i++) {
             if (shield.getAlive(i)) {
                 drawBox(shield.getx(i), shield.gety(i), shield.getWidth(), shield.getHeight());
@@ -289,6 +313,24 @@ public class GameState {
         }
     }
 
+    public void alienShot() {
+
+        if (r.nextInt(10) == 1) {
+            for (int i = 0; i < 10; i++) {
+                if (!bullets[i].onScreen()) {
+                    bullets[i] = new Bullets();
+                    bullets[i].destroyBullets();
+                    int randomAlien = r.nextInt(54);
+                    int alienX =aliens[randomAlien].getx();
+                    int alienY =aliens[randomAlien].gety();
+                    music.playShoot();
+                    bullets[i].bulletInit(alienX, alienY);
+                    break;
+                }
+            }
+        }
+    }
+    
     public void ufoCollision() {
 
         for (int i = 0; i < 5; i++) {
@@ -323,6 +365,18 @@ public class GameState {
         }
     }
 
+    public void spaceshipCollision() {
+
+        for (int i = 0; i < 10; i++) {
+            if (ship.collision(bullets[i].getHbx(), bullets[i].getHby(), bullets[i].getWidth(), bullets[i].getHeight())) {
+                music.playExplosion();
+                loseLife();
+                bullets[i].destroyBullets();
+            }
+        }
+
+    }
+    
     public void shieldCollision() {
 
         for (int i = 0; i < 5; i++) {
