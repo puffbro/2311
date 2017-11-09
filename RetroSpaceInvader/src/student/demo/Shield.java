@@ -25,7 +25,7 @@ public class Shield {
     private int hby[] = new int[20];
     private int size = 20;
     private int height = 10;
-    private int width = 150;
+    private int width = 100;
     private boolean[] alive = new boolean[20];
 
     public void initshield() {
