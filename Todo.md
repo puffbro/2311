@@ -2,7 +2,14 @@
 
 Play example: http://www.pacxon4u.com/space-invaders/
 
-Requirements
+Working on:   
+Shield Hitbox
+
+Updates:    
+Added stage screen.
+
+
+Requirements:
 
 ToDo:   
 Aliens can fire back at the spaceship.    
@@ -11,17 +18,15 @@ Increase the number of shots by one when a UFO is defeated.**Done**
 
 More wave.  **done, the number of shots in 2nd will be same as 1st stage,speed in 2nd will be faster**
 
-**Detasils on increase no. of shots**   
-Setting up array of lasers with:    
-private Laser[] lasers = new Laser[5];  //max 5 shot    
-for(0-4)lasers[i] = new Laser();    //need to call it for every element!   
 
 Extra:    
 Rework Alien class to array.**Done**    
 Show Hitbox.(press H to show)**Done**    
 
-Changes:    
-Updated pause menu, the game still draw the screen while pause.
+**Detasils on increase no. of shots**   
+Setting up array of lasers with:    
+private Laser[] lasers = new Laser[5];  //max 5 shot    
+for(0-4)lasers[i] = new Laser();    //need to call it for every element!   
 
 Done:   
 At least one wave 5x11 alien.  
