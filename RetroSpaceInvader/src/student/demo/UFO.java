@@ -27,7 +27,7 @@ public class UFO {
     }
 
     public void move() {
-        x += 4;
+        x += 3;
     }
 
     public boolean collision(int a, int b, int w, int h) {

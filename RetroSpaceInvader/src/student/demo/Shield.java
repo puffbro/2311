@@ -21,9 +21,11 @@ public class Shield {
     private Image[] images = {red, red, red, red, green, green, green, green, red, red, red, red, green, green, green, green, red, red, red, red};
     private int x[] = new int[20];
     private int y[] = new int[20];
+    private int hbx[] = new int[20];
+    private int hby[] = new int[20];
     private int size = 20;
-    private int height = 35;
-    private int width = 40;
+    private int height = 10;
+    private int width = 150;
     private boolean[] alive = new boolean[20];
 
     public void initshield() {
@@ -51,15 +53,13 @@ public class Shield {
         }
     }
 
-public boolean collision(int a, int b) {
+    public boolean collision(int a, int b, int w, int h) {
 
         for (int i = 0; i < 20; i++) {
-            int AL = x[i] + 10; //Left cood of alien hitbox
-            int AT = y[i] + 15; //Top cood of alien hitbox
-            int LL = a + 25;    //Left cood of laser hitbox
-            int LT = b + 20;    //Top cood of Laser hitbox
+            hbx[i] = x[i]; //Top Left x cood of UFO hitbox
+            hby[i] = y[i]; //Top Left y cood of UFO hitbox
 
-            if (LL - AL <= width && LL - AL >= 0 && LT - AT <= height && LT - AT >= 0 && alive[i] == true) {
+            if (a - hbx[i] <= width && a - hbx[i] >= -w && b - hby[i] <= height && b - hby[i] >= -h && alive[i] == true) {
                 alive[i] = false;
                 return true;
             }
@@ -74,12 +74,18 @@ public boolean collision(int a, int b) {
     public int gety(int a) {
         return y[a];
     }
+    
+    public int getWidth(){
+        return width;
+    }
+    
+    public int getHeight(){
+        return height;
+    }
 
     public boolean getAlive(int a) {
         return alive[a];
     }
-
-
 
     public Image getimg(int a) {
 

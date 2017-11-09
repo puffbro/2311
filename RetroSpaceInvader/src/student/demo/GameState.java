@@ -78,6 +78,7 @@ public class GameState {
             lasers[i] = new Laser();
             lasers[i].destroyLaser();
         }
+        shield.initshield();
         ufo.kill();
     }
 
@@ -91,14 +92,14 @@ public class GameState {
         } else {
 
             if (frame % 2 == 0) {
-                for (int i = 0; i < 55; i++) {
+                for (int i = 0; i < 55; i++) {          //half the alien move speed
                     aliens[i].move();
                 }
             }
 
             ufo.move();
             for (int i = 0; i < 5; i++) {
-                lasers[i].move(-13);           //-13 pixel every frame;
+                lasers[i].move(-10);           //-13 pixel every frame;
             }
             if (timer % 10 == 0) {              //every 10s
                 ufo.init();
@@ -106,6 +107,7 @@ public class GameState {
 
             ufoCollision();
             alienCollision();
+            shieldCollision();
             checkloseCombo();
             alienSpeed();
             System.out.println(timer);
@@ -200,7 +202,6 @@ public class GameState {
     }
 
     public void drawShield() {
-        shield.initshield();
         for (int k = 0; k < 20; k++) {
             if (shield.getAlive(k) == true) {
                 Console.getInstance().drawImage(shield.getx(k), shield.gety(k), shield.getimg(k));
@@ -235,10 +236,10 @@ public class GameState {
     public void drawBox(int x, int y, int w, int h) {
 
         Console.getInstance()
-                .drawRectangle(x, y, w, 1, Color.RED)
-                .drawRectangle(x, y, 1, h, Color.RED)
-                .drawRectangle(x, y + h, w, 1, Color.RED)
-                .drawRectangle(x + w, y, 1, h, Color.RED);
+                .drawRectangle(x, y, w, 1, Color.CYAN)
+                .drawRectangle(x, y, 1, h, Color.CYAN)
+                .drawRectangle(x, y + h, w, 1, Color.CYAN)
+                .drawRectangle(x + w, y, 1, h, Color.CYAN);
     }
 
     public void drawHitbox() {
@@ -253,6 +254,12 @@ public class GameState {
             }
         }
         drawBox(ufo.getHbx(), ufo.getHby(), ufo.getWidth(), ufo.getHeight());
+
+        for (int i = 0; i < 20; i++) {
+            if (shield.getAlive(i)) {
+                drawBox(shield.getx(i), shield.gety(i), shield.getWidth(), shield.getHeight());
+            }
+        }
     }
 
     public void toggleHitbox() {
@@ -312,6 +319,16 @@ public class GameState {
                     }
                     ship.addCombo(1);
                 }
+            }
+        }
+    }
+
+    public void shieldCollision() {
+
+        for (int i = 0; i < 5; i++) {
+            if (shield.collision(lasers[i].getHbx(), lasers[i].getHby(), lasers[i].getWidth(), lasers[i].getHeight())) {
+                music.playInvaderKilled();
+                lasers[i].destroyLaser();
             }
         }
     }
