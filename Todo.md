@@ -15,7 +15,7 @@ Requirements:
 ToDo:   
 Aliens can fire back at the spaceship.    
 Increase the number of shots by one when a UFO is defeated.**Done**  
-4 Shelters each with 5hp, block both player and alien shots.    **Done, needs tweak**  
+4 Shelters each with 5hp, block both player and alien shots.    **Done, needs tweak>>>>tweaked,the size is 100*10 now**  
 More wave.  **done, the number of shots in 2nd will be same as 1st stage,speed in 2nd will be faster**
 
 
