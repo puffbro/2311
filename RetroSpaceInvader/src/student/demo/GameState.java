@@ -71,7 +71,7 @@ public class GameState {
         }
 
         ship.init();
-        timer = 5;              //make the first UFO spawn at 5 sec, other UFO spawns every 10s as it takes ~5s for them to travel cross screen.
+        timer = 3;              //make the first UFO spawn after 5 sec, other UFO spawns every 10s and it takes ~5s for them to travel cross screen.
         music.stopBGM();
         music.playBGM();
         for (int i = 0; i < 5; i++) {
@@ -84,27 +84,34 @@ public class GameState {
     public void running() {
         Time();
 
-        if (frame % 2 == 0) {
-            for (int i = 0; i < 55; i++) {
-                aliens[i].move();
+        if (timer <= 5) {
+            drawStage();
+            System.out.println(timer);
+
+        } else {
+
+            if (frame % 2 == 0) {
+                for (int i = 0; i < 55; i++) {
+                    aliens[i].move();
+                }
             }
-        }
 
-        ufo.move();
-        for (int i = 0; i < 5; i++) {
-            lasers[i].move(-13);           //-13 pixel every frame;
-        }
-        if (timer % 10 == 0) {              //every 10s
-            ufo.init();
-        }
+            ufo.move();
+            for (int i = 0; i < 5; i++) {
+                lasers[i].move(-13);           //-13 pixel every frame;
+            }
+            if (timer % 10 == 0) {              //every 10s
+                ufo.init();
+            }
 
-        ufoCollision();
-        alienCollision();
-        checkloseCombo();
-        alienSpeed();
-        System.out.println(timer);
+            ufoCollision();
+            alienCollision();
+            checkloseCombo();
+            alienSpeed();
+            System.out.println(timer);
 
-        drawRunning();
+            drawRunning();
+        }
 
     }
 
@@ -114,10 +121,10 @@ public class GameState {
     }
 
     public void nextStage() {
-        stage=2;
-        int shotNumber=ship.getShots();
+        stage = 2;
+        int shotNumber = ship.getShots();
         init();
-        while(shotNumber>1){
+        while (shotNumber > 1) {
             ship.addShots(1);
             shotNumber--;
         }
@@ -172,7 +179,7 @@ public class GameState {
         drawAlien();
         drawUFO();
         drawShield();
-        
+
         if (Hitbox) {
             drawHitbox();
         }
@@ -181,7 +188,7 @@ public class GameState {
 
     public void drawStage() {
         Console.getInstance()
-                .drawText(380, 280, String.valueOf("Stage" + stage), new Font("Comic Sans MS", Font.BOLD, 50), Color.WHITE);
+                .drawText(390, 280, String.valueOf("Stage" + stage), new Font("Comic Sans MS", Font.BOLD, 50), Color.WHITE);
     }
 
     public void drawAlien() {
@@ -192,16 +199,14 @@ public class GameState {
         }
     }
 
-   
-    public void drawShield(){
+    public void drawShield() {
         shield.initshield();
         for (int k = 0; k < 20; k++) {
-             if (shield.getAlive(k) == true) {
+            if (shield.getAlive(k) == true) {
                 Console.getInstance().drawImage(shield.getx(k), shield.gety(k), shield.getimg(k));
-             }
+            }
         }
     }
-    
 
     public void drawShip() {
         Console.getInstance().drawImage(ship.getx(), ship.gety(), ship.getimg());
