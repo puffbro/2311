@@ -3,30 +3,21 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
+None    
 
-
-Recent Updates:    
-Added stage screen.
-2nd Stage faster, shots remains.    
-Shield tweaked.
-
-Requirements:
+Recent Updates:       
+Bullets.
 
 ToDo:   
-Aliens can fire back at the spaceship.    
-Increase the number of shots by one when a UFO is defeated.**Done**  
-4 Shelters each with 5hp, block both player and alien shots.    **Done**
-More wave.  **Done**
-
+Fix ready screen bug - able to shoot,move and pause during ready screen. (Ready state?)    
+Tweak bullet size.(Too small)    
+Tweak shield. (Change to all white maybe)   
 
 Extra:    
-Rework Alien class to array.**Done**    
-Show Hitbox.(press H to show)**Done**    
+Show key for testing (Debug mode?)
+More powerup?
 
-**Detasils on increase no. of shots**   
-Setting up array of lasers with:    
-private Laser[] lasers = new Laser[5];  //max 5 shot    
-for(0-4)lasers[i] = new Laser();    //need to call it for every element!   
+
 
 Done:   
 At least one wave 5x11 alien.  
@@ -37,5 +28,11 @@ Score system and score UI.
 Save and show the highest score.  
 Music and sound effects.  
 Rework gameState class. 
+Aliens can fire back at the spaceship.  
+Increase the number of shots by one when a UFO is defeated.  
+4 Shelters each with 5hp, block both player and alien shots.  
+More wave. 
+Rework Alien class to array. 
+Show Hitbox.(press H to show)
 
 
