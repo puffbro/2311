@@ -109,7 +109,7 @@ public class GameState {
                 lasers[i].move(-10);           //-13 pixel every frame;
             }
             for (int i = 0; i < 10; i++) {
-                bullets[i].bulletMove(10);
+                bullets[i].bulletMove(3);
             }
             if (timer % 10 == 0) {              //every 10s
                 ufo.init();
@@ -315,7 +315,7 @@ public class GameState {
 
     public void alienShot() {
 
-        if (r.nextInt(10) == 1) {
+        if (r.nextInt(30) == 1) {
             for (int i = 0; i < 10; i++) {
                 if (!bullets[i].onScreen()) {
                     bullets[i] = new Bullets();
@@ -331,6 +331,10 @@ public class GameState {
         }
     }
     
+    public void shootTest(){
+    
+    
+    }
     public void ufoCollision() {
 
         for (int i = 0; i < 5; i++) {

@@ -45,7 +45,7 @@ public class Bullets {
     }
 
     public void destroyBullets() {
-        y = -1000;
+        y = 1000;
     }
 
     public int getHbx() {
