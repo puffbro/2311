@@ -381,6 +381,12 @@ public class GameState {
                 bullets[i].destroyBullets();
             }
         }
+        for (int i = 0; i < 10; i++) {
+            if (shield.collision(bullets[i].getHbx(), bullets[i].getHby(), bullets[i].getWidth(), bullets[i].getHeight())) {
+                music.playInvaderKilled();
+                bullets[i].destroyBullets();
+            }           
+        }
 
     }
 
