@@ -151,10 +151,17 @@ public class GameState {
     public void nextStage() {
         stage = 2;
         int shotNumber = ship.getShots();
+        int life = ship.getLife();
         init();
         while (shotNumber > 1) {
             ship.addShots(1);
             shotNumber--;
+        }
+        if (life > 3) {
+            while (life - 3 >= 1) {      //-3 because init life is 3
+                ship.addLife();
+                life--;
+            }
         }
     }
 
@@ -278,7 +285,7 @@ public class GameState {
 
     public void drawLife() {
         for (int i = 0; i < ship.getLife() - 1; i++) {
-            Console.getInstance().drawImage(10+i*30, 570, ship.getimg2());
+            Console.getInstance().drawImage(10 + i * 30, 570, ship.getimg2());
         }
     }
 
