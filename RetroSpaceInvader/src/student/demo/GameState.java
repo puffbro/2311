@@ -74,7 +74,7 @@ public class GameState {
         }
 
         ship.init();
-        timer = 3;              //make the first UFO spawn after 5 sec, other UFO spawns every 10s and it takes ~5s for them to travel cross screen.
+        timer = 5;              //make the first UFO spawn after 5 sec, other UFO spawns every 10s and it takes ~5s for them to travel cross screen.
         music.stopBGM();
         music.playBGM();
         for (int i = 0; i < 5; i++) {
@@ -92,40 +92,45 @@ public class GameState {
     public void running() {
         Time();
 
-        if (timer <= 5) {
+        if (frame % 2 == 0) {
+            for (int i = 0; i < 55; i++) {          //half the alien move speed
+                aliens[i].move();
+            }
+        }
+
+        ufo.move();
+        for (int i = 0; i < 5; i++) {
+            lasers[i].move(-10);           //-13 pixel every frame;
+        }
+        for (int i = 0; i < 10; i++) {
+            bullets[i].bulletMove(3);
+        }
+        if (timer % 10 == 0) {              //every 10s
+            ufo.init();
+        }
+
+        ufoCollision();
+        alienCollision();
+        shieldCollision();
+        spaceshipCollision();
+        checkloseCombo();
+        alienSpeed();
+        alienShot();
+        System.out.println(timer);
+
+        drawRunning();
+
+    }
+
+    public boolean stage() {
+        Time();
+        if (timer <= 7) {           //run for 2 sec 7-5=3
             drawStage();
             System.out.println(timer);
-
         } else {
-
-            if (frame % 2 == 0) {
-                for (int i = 0; i < 55; i++) {          //half the alien move speed
-                    aliens[i].move();
-                }
-            }
-
-            ufo.move();
-            for (int i = 0; i < 5; i++) {
-                lasers[i].move(-10);           //-13 pixel every frame;
-            }
-            for (int i = 0; i < 10; i++) {
-                bullets[i].bulletMove(3);
-            }
-            if (timer % 10 == 0) {              //every 10s
-                ufo.init();
-            }
-
-            ufoCollision();
-            alienCollision();
-            shieldCollision();
-            spaceshipCollision();
-            checkloseCombo();
-            alienSpeed();
-            alienShot();
-            System.out.println(timer);
-
-            drawRunning();
+            return true;        //true when stage has shown for 2 sec
         }
+        return false;
 
     }
 
@@ -334,10 +339,6 @@ public class GameState {
         }
     }
 
-    public void shootTest() {
-
-    }
-
     public void ufoCollision() {
 
         for (int i = 0; i < 5; i++) {
@@ -385,7 +386,7 @@ public class GameState {
             if (shield.collision(bullets[i].getHbx(), bullets[i].getHby(), bullets[i].getWidth(), bullets[i].getHeight())) {
                 music.playInvaderKilled();
                 bullets[i].destroyBullets();
-            }           
+            }
         }
 
     }
@@ -452,15 +453,18 @@ public class GameState {
         ship.loseLife();
     }
 
-    public boolean checkWin() {
+    public String checkWin() {
         if (stage == 2) {
-            return alienLeft == 0;
+            if (alienLeft == 0) {
+                return "WIN";
+            }
         } else if (stage == 1) {
             if (alienLeft == 0) {
                 nextStage();
+                return "NEXTSTAGE";
             }
         }
-        return false;
+        return "0";
     }
 
     public boolean checkLose() {

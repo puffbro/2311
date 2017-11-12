@@ -34,6 +34,7 @@ public class GameDemo extends Game {
         PAUSE,
         WIN,
         LOSE,
+        STAGE,
     }
     private static State state;
 
@@ -92,10 +93,18 @@ public class GameDemo extends Game {
                 gameState.pause();
                 break;
 
+            case STAGE:
+                if (gameState.stage()) {
+                    state = state.RUNNING;
+                }
+                break;
+
             case RUNNING:
                 gameState.running();
-
-                if (gameState.checkWin()) {
+                if (gameState.checkWin() == "NEXTSTAGE") {
+                    state = state.STAGE;
+                }
+                if (gameState.checkWin() == "WIN") {
                     state = state.WIN;
                 }
                 if (gameState.checkLose()) {
@@ -149,6 +158,7 @@ public class GameDemo extends Game {
             case KeyEvent.VK_N:
                 if (state == state.RUNNING) {
                     gameState.nextStage();
+                    state = state.STAGE;
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
@@ -188,7 +198,7 @@ public class GameDemo extends Game {
             case MENU:
                 if (checkMouse(e, 360, 205, 600, 260)) {    //Start button
                     gameState.retry();
-                    state = State.RUNNING;
+                    state = State.STAGE;
                 }
                 break;
             case PAUSE:
@@ -196,19 +206,19 @@ public class GameDemo extends Game {
                     state = state.RUNNING;
                 } else if (checkMouse(e, 360, 205, 600, 260)) {     //Retry
                     gameState.retry();
-                    state = state.RUNNING;
+                    state = state.STAGE;
                 }
                 break;
             case WIN:
                 if (checkMouse(e, 360, 205, 600, 260)) {     //New game
                     gameState.retry();
-                    state = state.RUNNING;
+                    state = state.STAGE;
                 }
                 break;
             case LOSE:
                 if (checkMouse(e, 360, 205, 600, 260)) {    //Retry
                     gameState.retry();
-                    state = state.RUNNING;
+                    state = state.STAGE;
                 }
                 break;
         }
