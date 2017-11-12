@@ -6,12 +6,14 @@ Working on:
 None    
 
 Recent Updates:       
-Bullets.
+Shield image.
+Dev mode.
+Ship life rework.
 
 ToDo:   
 Fix ready screen bug - able to shoot,move and pause during ready screen. **DONE**   
 Tweak bullet size.(Too small)    
-Tweak shield. (Change to all white maybe)   
+Tweak shield. (Change to all white maybe)   **DONE**
 
 Extra:    
 Show key for testing (Debug mode?)    
