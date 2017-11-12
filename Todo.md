@@ -9,7 +9,7 @@ Recent Updates:
 Bullets.
 
 ToDo:   
-Fix ready screen bug - able to shoot,move and pause during ready screen. (Ready state?)    
+Fix ready screen bug - able to shoot,move and pause during ready screen. **DONE**   
 Tweak bullet size.(Too small)    
 Tweak shield. (Change to all white maybe)   
 
