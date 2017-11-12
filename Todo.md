@@ -6,9 +6,9 @@ Working on:
 None    
 
 Recent Updates:       
-Shield image.
-Dev mode.
-Ship life rework.
+Shield image.   
+Dev mode.   
+Ship life rework.   
 
 ToDo:   
 Fix ready screen bug - able to shoot,move and pause during ready screen. **DONE**   
