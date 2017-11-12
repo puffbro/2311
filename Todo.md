@@ -8,7 +8,7 @@ None
 Recent Updates:       
 Shield image.   
 Dev mode.   
-Ship life rework.   
+Ship life rework.(if >3 it remains next stage, else it reset to 3)    
 
 ToDo:   
 Fix ready screen bug - able to shoot,move and pause during ready screen. **DONE**   
