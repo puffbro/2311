@@ -61,10 +61,10 @@ public class Ship {
 
     public boolean collision(int a, int b, int w, int h) {
 
-        hbx = x ; //Top Left x cood of ship hitbox
-        hby = y ; //Top Left y cood of ship hitbox
+        hbx = x; //Top Left x cood of ship hitbox
+        hby = y; //Top Left y cood of ship hitbox
 
-        if (a - hbx <= width && a - hbx >= -w && b - hby <= height && b - hby >= -h ) {
+        if (a - hbx <= width && a - hbx >= -w && b - hby <= height && b - hby >= -h) {
 
             return true;
         }
@@ -72,8 +72,8 @@ public class Ship {
         return false;
 
     }
-    
-     public int getHbx() {
+
+    public int getHbx() {
         return hbx;
     }
 
@@ -88,14 +88,15 @@ public class Ship {
     public int getHeight() {
         return height;
     }
-    
-    
+
     public void addScore(int a) {
         score += a * combo;
     }
 
     public void addCombo(int a) {
-        combo += a;
+        if (combo < 5) {
+            combo += a;
+        }
     }
 
     public void loseCombo() {
@@ -104,6 +105,10 @@ public class Ship {
 
     public void loseLife() {
         life -= 1;
+    }
+
+    public void addLife() {
+        life += 1;
     }
 
     public int getx() {

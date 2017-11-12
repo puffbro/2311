@@ -24,7 +24,7 @@ public class GameState {
     private Alien[] aliens = new Alien[55];
     private Laser[] lasers = new Laser[5];
     private Bullets[] bullets = new Bullets[10];
-    private Ship ship = new Ship();
+    Ship ship = new Ship();
     private int stage = 1;
     private Shield shield = new Shield();
     private int alienLeft;
@@ -33,6 +33,7 @@ public class GameState {
     private int i;
     private int speed;
     private boolean Hitbox = false;
+    private boolean dev = false;
     Random r = new Random();
 
     public void Frame() {
@@ -53,6 +54,14 @@ public class GameState {
                 .drawImage(280, 10, logo)
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 250, "New Game", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
+
+        if (dev) {
+            Console.getInstance()
+                    .drawText(770, 590, "dev mode enabled", new Font("Comic Sans MS", Font.BOLD, 15), Color.WHITE);
+        } else {
+            Console.getInstance()
+                    .drawText(770, 590, "F3 to toggle dev mode", new Font("Comic Sans MS", Font.BOLD, 15), Color.WHITE);
+        }
     }
 
     public void init() {
@@ -155,7 +164,20 @@ public class GameState {
                 .drawRectangle(360, 105, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 150, "Resume", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
+                .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
+                .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
+        if (dev) {
+            Console.getInstance()
+                    .drawRectangle(23, 32, 130, 150, Color.DARK_GRAY, 0)
+                    .drawText(30, 50, "H - Toggle Hit box", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 70, "W - Win", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 90, "L - Lose", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 110, "N - Next Stage", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 130, "E - Kill ship", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 150, "A - Add ship life", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 170, "P - Powerup", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA);
+        }
     }
 
     public void win() {
@@ -165,6 +187,8 @@ public class GameState {
         Console.getInstance()
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 250, "New Game", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
+                .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
                 .drawText(350, 100, "You Win!", new Font("Comic Sans MS", Font.BOLD, 60), Color.YELLOW)
                 .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
 
@@ -176,6 +200,8 @@ public class GameState {
         Console.getInstance()
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
+                .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
                 .drawText(300, 100, "You're Dead", new Font("Comic Sans MS", Font.BOLD, 60), Color.RED)
                 .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
     }
@@ -200,8 +226,11 @@ public class GameState {
         drawShield();
         drawBullets();
 
-        if (Hitbox) {
-            drawHitbox();
+        if (dev) {
+            Console.getInstance().drawText(750, 20, "dev mode enabled, pause to see hotkeys", new Font("Comic Sans MS", Font.PLAIN, 13), Color.MAGENTA);
+            if (Hitbox) {
+                drawHitbox();
+            }
         }
 
     }
@@ -248,22 +277,18 @@ public class GameState {
     }
 
     public void drawLife() {
-        if (ship.getLife() == 3) {
-            Console.getInstance().drawImage(12, 570, ship.getimg2());
-            Console.getInstance().drawImage(40, 570, ship.getimg2());
-        }
-        if (ship.getLife() == 2) {
-            Console.getInstance().drawImage(12, 570, ship.getimg2());
+        for (int i = 0; i < ship.getLife() - 1; i++) {
+            Console.getInstance().drawImage(10+i*30, 570, ship.getimg2());
         }
     }
 
     public void drawBox(int x, int y, int w, int h) {
 
         Console.getInstance()
-                .drawRectangle(x, y, w, 1, Color.CYAN)
-                .drawRectangle(x, y, 1, h, Color.CYAN)
-                .drawRectangle(x, y + h, w, 1, Color.CYAN)
-                .drawRectangle(x + w, y, 1, h, Color.CYAN);
+                .drawRectangle(x, y, w, 1, Color.MAGENTA)
+                .drawRectangle(x, y, 1, h, Color.MAGENTA)
+                .drawRectangle(x, y + h, w, 1, Color.MAGENTA)
+                .drawRectangle(x + w, y, 1, h, Color.MAGENTA);
     }
 
     public void drawHitbox() {
@@ -293,6 +318,14 @@ public class GameState {
 
     public void toggleHitbox() {
         Hitbox = !Hitbox;
+    }
+
+    public void toggleDev() {
+        dev = !dev;
+    }
+
+    public boolean getDev() {
+        return dev;
     }
 
     public void moveR() {
@@ -451,6 +484,10 @@ public class GameState {
 
     public void loseLife() {
         ship.loseLife();
+    }
+
+    public void addLife() {
+        ship.addLife();
     }
 
     public String checkWin() {

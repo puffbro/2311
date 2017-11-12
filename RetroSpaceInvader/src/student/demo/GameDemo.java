@@ -139,26 +139,9 @@ public class GameDemo extends Game {
                     gameState.moveR();
                 }
                 break;
-            case KeyEvent.VK_L:
-                if (state == state.RUNNING) {
-                    state = state.LOSE;
-                }
-
-                break;
-            case KeyEvent.VK_W:
-                if (state == state.RUNNING) {
-                    state = state.WIN;
-                }
-                break;
             case KeyEvent.VK_SPACE:
                 if (state == state.RUNNING) {
                     gameState.shoot();
-                }
-                break;
-            case KeyEvent.VK_N:
-                if (state == state.RUNNING) {
-                    gameState.nextStage();
-                    state = state.STAGE;
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
@@ -171,14 +154,43 @@ public class GameDemo extends Game {
                         break;
                 }
                 break;
+            case KeyEvent.VK_F3:
+                gameState.toggleDev();
+                break;
+            case KeyEvent.VK_L:
+                if (state == state.RUNNING && gameState.getDev()) {
+                    state = state.LOSE;
+                }
+                break;
+            case KeyEvent.VK_W:
+                if (state == state.RUNNING && gameState.getDev()) {
+                    state = state.WIN;
+                }
+                break;
+            case KeyEvent.VK_N:
+                if (state == state.RUNNING && gameState.getDev()) {
+                    gameState.nextStage();
+                    state = state.STAGE;
+                }
+                break;
             case KeyEvent.VK_E:
-                if (state == state.RUNNING) {
+                if (state == state.RUNNING && gameState.getDev()) {
                     gameState.loseLife();
                 }
                 break;
+            case KeyEvent.VK_A:
+                if (state == state.RUNNING && gameState.getDev()) {
+                    gameState.addLife();
+                }
+                break;
             case KeyEvent.VK_H:
-                if (state == state.RUNNING) {
+                if (state == state.RUNNING && gameState.getDev()) {
                     gameState.toggleHitbox();
+                }
+                break;
+            case KeyEvent.VK_P:
+                if (state == state.RUNNING && gameState.getDev()) {
+                    gameState.ship.addShots(1);
                 }
                 break;
         }
@@ -207,18 +219,24 @@ public class GameDemo extends Game {
                 } else if (checkMouse(e, 360, 205, 600, 260)) {     //Retry
                     gameState.retry();
                     state = state.STAGE;
+                } else if (checkMouse(e, 360, 305, 600, 360)) {     //Main Menu
+                    state = state.MENU;
                 }
                 break;
             case WIN:
                 if (checkMouse(e, 360, 205, 600, 260)) {     //New game
                     gameState.retry();
                     state = state.STAGE;
+                } else if (checkMouse(e, 360, 305, 600, 360)) {     //Main Menu
+                    state = state.MENU;
                 }
                 break;
             case LOSE:
                 if (checkMouse(e, 360, 205, 600, 260)) {    //Retry
                     gameState.retry();
                     state = state.STAGE;
+                } else if (checkMouse(e, 360, 305, 600, 360)) {     //Main Menu
+                    state = state.MENU;
                 }
                 break;
         }

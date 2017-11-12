@@ -18,6 +18,7 @@ public class Shield {
 
     private Image red = Console.loadImage("/student/demo/img/red.png");
     private Image green = Console.loadImage("/student/demo/img/green.png");
+    private Image shield = Console.loadImage("/student/demo/img/shield.png");
     private Image[] images = {red, red, red, red, green, green, green, green, red, red, red, red, green, green, green, green, red, red, red, red};
     private int x[] = new int[20];
     private int y[] = new int[20];
@@ -89,7 +90,8 @@ public class Shield {
 
     public Image getimg(int a) {
 
-        return images[a];
+        //return images[a];
+        return shield;
 
     }
 }
