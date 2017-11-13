@@ -25,6 +25,7 @@ public class GameState {
     private Laser[] lasers = new Laser[5];
     private Bullets[] bullets = new Bullets[10];
     private Powerup[] powerups = new Powerup[5];
+    private Blaster[] blasters = new Blaster[10];
     Ship ship = new Ship();
     private int stage = 1;
     private Shield shield = new Shield();
@@ -47,6 +48,7 @@ public class GameState {
 
     public void Time() {        //This only run when running() is running
         i = ++i % 20;           //Pause animation when not running
+        
 
     }
 
@@ -97,6 +99,8 @@ public class GameState {
         for (int i = 0; i < 10; i++) {
             bullets[i] = new Bullets();
             bullets[i].destroyBullets();
+            blasters[i] = new Blaster();
+            blasters[i].destroyBlaster();
         }
         shield.initshield();
         ufo.kill();
@@ -226,6 +230,7 @@ public class GameState {
         drawAlien();
         drawUFO();
         drawShield();
+        drawBlaster();
         drawBullets();
         drawPowerup();
 
@@ -280,6 +285,12 @@ public class GameState {
     public void drawLaser() {
         for (int i = 0; i < 5; i++) {
             Console.getInstance().drawImage(lasers[i].getx(), lasers[i].gety(), lasers[i].getimg());
+        }
+    }
+
+    public void drawBlaster() {
+        for (int j = 0; j < 10; j++) {
+            Console.getInstance().drawImage(blasters[j].getx(), blasters[j].gety(), blasters[j].getimg(timer));
         }
     }
 
@@ -373,6 +384,10 @@ public class GameState {
                 break;                  //make sure only one shot is fire every time, prevent 5 shots at once.
             }
         }
+    }
+
+    public void blaster() {
+        blasters[0].init(ship.getx(), ship.gety(), timer);
     }
 
     public void alienShot() {

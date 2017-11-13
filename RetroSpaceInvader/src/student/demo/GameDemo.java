@@ -143,6 +143,10 @@ public class GameDemo extends Game {
                 if (state == state.RUNNING) {
                     gameState.shoot();
                 }
+            case KeyEvent.VK_B:
+                if (state == state.RUNNING) {
+                    gameState.blaster();
+                }
                 break;
             case KeyEvent.VK_ESCAPE:
                 switch (state) {

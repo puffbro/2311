@@ -6,6 +6,7 @@ Working on:
 Ghaster Blaster Powerup - This:(https://youtu.be/Vr4IYjeplJA?t=4m10s)    
 
 Recent Updates:       
+Blaster animation tested.
 3 Powerup, laser+1, hp+1 and Blaster(WIP)		
 Tweaked volume.		
 Draw images for powerups.   
@@ -28,7 +29,7 @@ Music and sound effects.
 Rework gameState class. 
 Aliens can fire back at the spaceship.  
 Increase the number of shots by one when a UFO is defeated.  
-4 Shelters each with 5hp, block both player and alien shots.  
+4 Shelters each with 5hp, block both player and alien shots. ?
 More wave. 
 Rework Alien class to array. 
 Show Hitbox.(press H to show)

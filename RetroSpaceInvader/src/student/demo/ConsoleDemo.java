@@ -54,13 +54,13 @@ public class ConsoleDemo {
          */
         Image img1 = Console.loadImage("/student/demo/img/invader64_1.png");
         Image img2 = Console.loadImage("/student/demo/img/invader64_2.png");
-        Image img3 = Console.loadImage("/student/demo/img/shiplife.png");
+        Image img3 = Console.loadImage("/student/demo/img/spaceship_1.png");
 
         /*
          The Console instance provides a number of drawXXX() methods to paint elements on the game window. These methods also
          support method chaining.
          */
-        Console.getInstance().drawImage(100, 200, Console.loadImage("/student/demo/img/powerup.png"));                        // x=100, y=200
+        Console.getInstance().drawImage(100, 200, Console.loadImage("/student/demo/img/Blast_1.png"));                        // x=100, y=200
         Console.getInstance().drawImage(100, 400, img2);
         Console.getInstance().drawImage(100, 500, img3);
         Console.getInstance().drawCircle(500, 400, 128, 128, Color.GREEN)
