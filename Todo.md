@@ -13,10 +13,9 @@ Draw images for powerups.
 ToDo:     
 Tweak bullet size.(Too small)    
 Ghaster Blaster.    
-Sans boss fight.   
 
 Extra:    
-Boss fight.   
+Sans boss fight.   
 
 Done:   
 At least one wave 5x11 alien.  
