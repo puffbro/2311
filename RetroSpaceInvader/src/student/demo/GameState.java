@@ -219,6 +219,15 @@ public class GameState {
 
     public void drawRunning() {
 
+        drawLife();
+        drawLaser();
+        drawShip();
+        drawAlien();
+        drawUFO();
+        drawShield();
+        drawBullets();
+        drawPowerup();
+
         Console.getInstance()
                 .drawText(540, 590, "Score:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
@@ -228,15 +237,6 @@ public class GameState {
                 .drawText(325, 590, String.valueOf(ship.getShots() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
-
-        drawLife();
-        drawPowerup();
-        drawLaser();
-        drawShip();
-        drawAlien();
-        drawUFO();
-        drawShield();
-        drawBullets();
 
         if (dev) {
             Console.getInstance().drawText(750, 20, "dev mode enabled, pause to see hotkeys", new Font("Comic Sans MS", Font.PLAIN, 13), Color.MAGENTA);
@@ -290,7 +290,7 @@ public class GameState {
 
     public void drawPowerup() {
         for (int i = 0; i < 5; i++) {
-            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg(timer%3));
+            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg(timer % 3));
         }
     }
 
@@ -445,7 +445,7 @@ public class GameState {
         }
         for (int i = 0; i < 5; i++) {
             if (ship.collision(powerups[i].getHbx(), powerups[i].getHby(), powerups[i].getWidth(), powerups[i].getHeight())) {
-                music.playPowerup();  
+                music.playPowerup();
                 ship.addShots(1);
                 powerups[i].destroyPowerup();
             }

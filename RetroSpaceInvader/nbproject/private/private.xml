@@ -5,18 +5,16 @@
         <group name="Java"/>
         <group name="EE2311 (Java)"/>
         <group>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Alien.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Powerup.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/img/powerup.png</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Laser.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/ConsoleDemo.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Bullets.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Shield.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/UFO.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Ship.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/GameDemo.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/GameState.java</file>
-            <file>file:/C:/Users/Puff/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Music.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/GameState.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Ship.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Laser.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Alien.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/GameDemo.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Bullets.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Music.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/UFO.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/ConsoleDemo.java</file>
+            <file>file:/C:/Users/PuFF/Documents/GitHub/2311/RetroSpaceInvader/src/student/demo/Shield.java</file>
         </group>
     </open-files>
 </project-private>
