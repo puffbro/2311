@@ -3,7 +3,11 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
+<<<<<<< HEAD
 More powerup.
+=======
+Power up    
+>>>>>>> 9d1f0aae2ab4d26d62b81509c71a810c32d5a5f1
 
 Recent Updates:       
 Powerup class - falls down when ufo is destroyed, catching it gives +1 shot currently.		
