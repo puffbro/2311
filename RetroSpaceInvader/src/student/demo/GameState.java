@@ -29,7 +29,7 @@ public class GameState {
     private int stage = 1;
     private Shield shield = new Shield();
     private int alienLeft;
-    private int timer = 0;
+    private double timer = 0;
     private int frame = 0;
     private int i;
     private int speed;
@@ -39,14 +39,15 @@ public class GameState {
 
     public void Frame() {
         frame = ++frame % 50;       //50 frame as a cycle
+        if (frame % 5 == 0) //50 frame = 1s (50fps)
+        {
+            timer += 0.1;                // + 1sec            
+        }
     }
 
     public void Time() {        //This only run when running() is running
         i = ++i % 20;           //Pause animation when not running
-        if (frame == 49) //50 frame = 1s (50fps)
-        {
-            timer++;                // + 1sec
-        }
+
     }
 
     public void startMenu() {
@@ -118,7 +119,7 @@ public class GameState {
         for (int i = 0; i < 10; i++) {
             bullets[i].bulletMove(3);
         }
-        if (timer % 10 == 0 && !ufo.onScreen()) {              //every 10s
+        if ((int) timer % 10 == 0 && !ufo.onScreen()) {              //every 10s
             ufo.init();
         }
 
@@ -214,7 +215,7 @@ public class GameState {
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
                 .drawText(300, 100, "You're Dead", new Font("Comic Sans MS", Font.BOLD, 60), Color.RED)
-                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
+                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.RED);
     }
 
     public void drawRunning() {
@@ -290,7 +291,7 @@ public class GameState {
 
     public void drawPowerup() {
         for (int i = 0; i < 5; i++) {
-            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg(timer % 3));
+            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg((int) timer % 3));
         }
     }
 
@@ -446,7 +447,13 @@ public class GameState {
         for (int i = 0; i < 5; i++) {
             if (ship.collision(powerups[i].getHbx(), powerups[i].getHby(), powerups[i].getWidth(), powerups[i].getHeight())) {
                 music.playPowerup();
-                ship.addShots(1);
+                if ((int) timer % 3 == 0) {
+                    ship.addCombo(10);      //blaster placeholder
+                } else if ((int) timer % 3 == 1) {
+                    ship.addShots(1);
+                } else if ((int) timer % 3 == 2) {
+                    ship.addLife();
+                }
                 powerups[i].destroyPowerup();
             }
         }
@@ -488,13 +495,13 @@ public class GameState {
             }
         } else if (stage == 2) {
             if (alienLeft >= 30) {
-                speed = 4;
+                speed = 2;
             } else if (alienLeft >= 15 && alienLeft < 30) {
-                speed = 5;
+                speed = 3;
             } else if (alienLeft >= 5 && alienLeft < 15) {
-                speed = 6;
+                speed = 4;
             } else if (alienLeft >= 0 && alienLeft < 5) {
-                speed = 7;
+                speed = 5;
             }
         }
         for (int i = 0; i < 55; i++) {

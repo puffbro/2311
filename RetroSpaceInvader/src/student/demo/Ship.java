@@ -94,9 +94,7 @@ public class Ship {
     }
 
     public void addCombo(int a) {
-        if (combo < 5) {
-            combo += a;
-        }
+            combo += a;       
     }
 
     public void loseCombo() {

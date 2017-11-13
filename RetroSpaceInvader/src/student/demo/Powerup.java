@@ -6,9 +6,9 @@ import java.awt.Image;
 public class Powerup {
 
     private Image img = Console.loadImage("/student/demo/img/powerup.png");
-    private Image img1 = Console.loadImage("/student/demo/img/powerup_1.png");
-    private Image img2 = Console.loadImage("/student/demo/img/powerup_2.png");
-    private Image img3 = Console.loadImage("/student/demo/img/powerup_3.png");
+    private Image img1 = Console.loadImage("/student/demo/img/powerup_1.png");      //blaster
+    private Image img2 = Console.loadImage("/student/demo/img/powerup_2.png");      //laser+1
+    private Image img3 = Console.loadImage("/student/demo/img/powerup_3.png");      //hp
     private Image[] images = {img1, img2, img3};
     private int x = 0;
     private int y = -100;
