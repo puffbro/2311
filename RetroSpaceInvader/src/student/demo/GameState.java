@@ -24,6 +24,7 @@ public class GameState {
     private Alien[] aliens = new Alien[55];
     private Laser[] lasers = new Laser[5];
     private Bullets[] bullets = new Bullets[10];
+    private Powerup[] powerups = new Powerup[5];
     Ship ship = new Ship();
     private int stage = 1;
     private Shield shield = new Shield();
@@ -89,6 +90,8 @@ public class GameState {
         for (int i = 0; i < 5; i++) {
             lasers[i] = new Laser();
             lasers[i].destroyLaser();
+            powerups[i] = new Powerup();
+            powerups[i].destroyPowerup();
         }
         for (int i = 0; i < 10; i++) {
             bullets[i] = new Bullets();
@@ -110,11 +113,12 @@ public class GameState {
         ufo.move();
         for (int i = 0; i < 5; i++) {
             lasers[i].move(-10);           //-13 pixel every frame;
+            powerups[i].move(2);
         }
         for (int i = 0; i < 10; i++) {
             bullets[i].bulletMove(3);
         }
-        if (timer % 10 == 0) {              //every 10s
+        if (timer % 10 == 0 && !ufo.onScreen()) {              //every 10s
             ufo.init();
         }
 
@@ -226,6 +230,7 @@ public class GameState {
                 .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
 
         drawLife();
+        drawPowerup();
         drawLaser();
         drawShip();
         drawAlien();
@@ -283,6 +288,12 @@ public class GameState {
         }
     }
 
+    public void drawPowerup() {
+        for (int i = 0; i < 5; i++) {
+            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg(timer%3));
+        }
+    }
+
     public void drawLife() {
         for (int i = 0; i < ship.getLife() - 1; i++) {
             Console.getInstance().drawImage(10 + i * 30, 570, ship.getimg2());
@@ -312,6 +323,11 @@ public class GameState {
         for (int i = 0; i < 10; i++) {
             if (bullets[i].onScreen()) {
                 drawBox(bullets[i].getHbx(), bullets[i].getHby(), bullets[i].getWidth(), bullets[i].getHeight());
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if (powerups[i].onScreen()) {
+                drawBox(powerups[i].getHbx(), powerups[i].getHby(), powerups[i].getWidth(), powerups[i].getHeight());
             }
         }
         drawBox(ufo.getHbx(), ufo.getHby(), ufo.getWidth(), ufo.getHeight());
@@ -383,10 +399,15 @@ public class GameState {
 
         for (int i = 0; i < 5; i++) {
             if (ufo.collision(lasers[i].getHbx(), lasers[i].getHby(), lasers[i].getWidth(), lasers[i].getHeight())) {
+                for (int j = 0; j < 5; j++) {
+                    if (!powerups[j].onScreen()) {
+                        powerups[j].init(ufo.getx(), ufo.gety());
+                        break;                  //make sure only one powerup spawn every time.
+                    }
+                }
                 music.playInvaderKilled();
                 lasers[i].destroyLaser();
                 ship.addScore(10000);
-                ship.addShots(1);
                 ufo.kill();
                 if (ship.score > ship.highestScore) {
                     ship.setHighestScore(ship.score);
@@ -422,10 +443,11 @@ public class GameState {
                 bullets[i].destroyBullets();
             }
         }
-        for (int i = 0; i < 10; i++) {
-            if (shield.collision(bullets[i].getHbx(), bullets[i].getHby(), bullets[i].getWidth(), bullets[i].getHeight())) {
-                music.playInvaderKilled();
-                bullets[i].destroyBullets();
+        for (int i = 0; i < 5; i++) {
+            if (ship.collision(powerups[i].getHbx(), powerups[i].getHby(), powerups[i].getWidth(), powerups[i].getHeight())) {
+                music.playPowerup();  
+                ship.addShots(1);
+                powerups[i].destroyPowerup();
             }
         }
 

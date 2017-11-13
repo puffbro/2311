@@ -16,10 +16,6 @@ public class UFO {
     private int width = 50;
     private boolean alive;
 
-    public static void main(String[] args) {
-
-    }
-
     public void init() {
         x = -200;
         y = 10;
@@ -33,7 +29,7 @@ public class UFO {
     public boolean collision(int a, int b, int w, int h) {
 
         hbx = x + 15; //Top Left x cood of UFO hitbox
-        hby = y ; //Top Left y cood of UFO hitbox
+        hby = y; //Top Left y cood of UFO hitbox
 
         if (a - hbx <= width && a - hbx >= -w && b - hby <= height && b - hby >= -h && alive == true) {
             alive = false;
@@ -70,6 +66,13 @@ public class UFO {
 
     public boolean getAlive() {
         return alive;
+    }
+
+    public boolean onScreen() {
+        if (x > 900) {
+            return false;
+        }
+        return true;
     }
 
     public Image getimg(int a) {

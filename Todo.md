@@ -3,17 +3,15 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
-None    
+More powerup.
 
 Recent Updates:       
-Shield image.   
-Dev mode.   
-Ship life rework.(if >3 it remains next stage, else it reset to 3)    
+Powerup class - falls down when ufo is destroyed, catching it gives +1 shot currently.		
+Tweaked volume.		
 
-ToDo:   
-Fix ready screen bug - able to shoot,move and pause during ready screen. **DONE**   
+ToDo:     
 Tweak bullet size.(Too small)    
-Tweak shield. (Change to all white maybe)   **DONE**
+Powerups.		
 
 Extra:    
 Show key for testing (Debug mode?)    
@@ -34,5 +32,8 @@ Increase the number of shots by one when a UFO is defeated.
 More wave. 
 Rework Alien class to array. 
 Show Hitbox.(press H to show)
+Shield image.   
+Dev mode.   
+Ship life rework.(if >3 it remains next stage, else it reset to 3)    
 
 
