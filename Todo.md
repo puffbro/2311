@@ -3,7 +3,7 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
-None    
+Power up    
 
 Recent Updates:       
 Shield image.   
