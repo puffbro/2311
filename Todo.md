@@ -3,19 +3,20 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
-More powerup.   
+Ghaster Blaster Powerup - This:(https://youtu.be/Vr4IYjeplJA?t=4m10s)    
 
 Recent Updates:       
-Powerup class - falls down when ufo is destroyed, catching it gives +1 shot currently.		
+3 Powerup, laser+1, hp+1 and Blaster(WIP)		
 Tweaked volume.		
+Draw images for powerups.   
 
 ToDo:     
 Tweak bullet size.(Too small)    
-Powerups.		
+Ghaster Blaster.    
+Sans boss fight.   
 
 Extra:    
-Show key for testing (Debug mode?)    
-More powerup?   
+Boss fight.   
 
 Done:   
 At least one wave 5x11 alien.  
