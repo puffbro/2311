@@ -48,11 +48,12 @@ public class Blaster {
 
         if (y > 700) {
             vely =0;            
+            x = -1000;
         }
     }
 
     public boolean onScreen() {
-        if (y > -50) {
+        if (x > -100) {
             return true;
         } else {
             return false;

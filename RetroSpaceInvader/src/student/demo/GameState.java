@@ -411,7 +411,7 @@ public class GameState {
     }
 
     public void blaster() {
-        if (ship.getBlaster() > 0) {
+        if (ship.getBlaster() > 0 && !blasters[0].onScreen()) {
             blasters[0].init(ship.getx(), ship.gety(), timer);
             beam.init(ship.getx(), ship.gety(), timer);
             ship.loseBlaster();
