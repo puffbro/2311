@@ -10,8 +10,8 @@ public class Bullets {
     private int y=-100;
     private int hbx;
     private int hby;
-    private int width = 2;
-    private int height = 5;
+    private int width = 3;
+    private int height = 6;
 
     public void bulletInit(int a, int b) {
         x = a+32;

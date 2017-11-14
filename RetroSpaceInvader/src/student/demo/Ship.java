@@ -21,6 +21,7 @@ public class Ship {
     public int highestScore;
     private int combo;
     private int shots;
+    private int blaster;
     private int hbx;
     private int hby;
     private int height = 48;
@@ -33,6 +34,7 @@ public class Ship {
         combo = 1;
         life = 3;
         shots = 1;
+        blaster = 1;
     }
 
     public int getShots() {
@@ -88,7 +90,18 @@ public class Ship {
     public int getHeight() {
         return height;
     }
-
+    
+    public int getBlaster(){
+        return blaster;
+    }
+    
+    public void addBlaster(){
+        blaster++;
+    }
+    
+    public void loseBlaster(){
+        blaster--;
+    }
     public void addScore(int a) {
         score += a * combo;
     }
@@ -127,6 +140,10 @@ public class Ship {
 
     public int getScore() {
         return score;
+    }
+    
+    public void setScore(int a){
+        score = a;
     }
 
     public int getCombo() {

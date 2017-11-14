@@ -3,16 +3,14 @@
 Play example: http://www.pacxon4u.com/space-invaders/
 
 Working on:   
-Ghaster Blaster Powerup - This:(https://youtu.be/Vr4IYjeplJA?t=4m10s)    
+  
 
 Recent Updates:       
-Blaster animation tested.
-3 Powerup, laser+1, hp+1 and Blaster(WIP)		
-Tweaked volume.		
-Draw images for powerups.   
+Blaster powerup.				
+Bigger bullets.		
+Score and combo last till stage 2.			 
 
-ToDo:     
-Tweak bullet size.(Too small)    
+ToDo:       
 Ghaster Blaster.    
 
 Extra:    
@@ -34,7 +32,7 @@ More wave.
 Rework Alien class to array. 
 Show Hitbox.(press H to show)
 Shield image.   
-Dev mode.   
+Dev mode.(F3)   
 Ship life rework.(if >3 it remains next stage, else it reset to 3)    
 
 

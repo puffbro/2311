@@ -193,9 +193,14 @@ public class GameDemo extends Game {
                     gameState.toggleHitbox();
                 }
                 break;
-            case KeyEvent.VK_P:
+            case KeyEvent.VK_S:
                 if (state == state.RUNNING && gameState.getDev()) {
                     gameState.ship.addShots(1);
+                }
+                break;
+            case KeyEvent.VK_D:
+                if (state == state.RUNNING && gameState.getDev()) {
+                    gameState.ship.addBlaster();
                 }
                 break;
         }

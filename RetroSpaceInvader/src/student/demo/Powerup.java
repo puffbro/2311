@@ -18,7 +18,7 @@ public class Powerup {
     private int height = 30;
 
     public void init(int a, int b) {
-        x = a + 10;
+        x = a + 15;
         y = b + 50;
     }
 

@@ -120,7 +120,7 @@ public class GameState {
         }
 
         ufo.move();
-        beam.move(timer);
+        beam.move(blasters[0].getx(), blasters[0].gety(), timer);
         for (int i = 0; i < 5; i++) {
             lasers[i].move(-10);           //-13 pixel every frame;
             powerups[i].move(2);
@@ -166,10 +166,22 @@ public class GameState {
         stage = 2;
         int shotNumber = ship.getShots();
         int life = ship.getLife();
+        int score = ship.getScore();
+        int combo = ship.getCombo();
+        int beam = ship.getBlaster();
         init();
+        ship.setScore(score);
         while (shotNumber > 1) {
             ship.addShots(1);
             shotNumber--;
+        }
+        while (combo > 1) {
+            ship.addCombo(1);
+            combo--;
+        }
+        while (beam > 1) {
+            ship.addBlaster();
+            beam--;
         }
         if (life > 3) {
             while (life - 3 >= 1) {      //-3 because init life is 3
@@ -190,14 +202,15 @@ public class GameState {
                 .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
         if (dev) {
             Console.getInstance()
-                    .drawRectangle(23, 32, 130, 150, Color.DARK_GRAY, 0)
+                    .drawRectangle(23, 32, 130, 170, Color.DARK_GRAY, 0)
                     .drawText(30, 50, "H - Toggle Hit box", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
                     .drawText(30, 70, "W - Win", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
                     .drawText(30, 90, "L - Lose", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
                     .drawText(30, 110, "N - Next Stage", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
                     .drawText(30, 130, "E - Kill ship", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 150, "A - Add ship life", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 170, "P - Powerup", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA);
+                    .drawText(30, 150, "A - Life + 1", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 170, "S - Max shot +1", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 190, "D - Beam +1", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA);
         }
     }
 
@@ -245,8 +258,8 @@ public class GameState {
                 .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(400, 590, "Combo:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(270, 590, "Shots:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(325, 590, String.valueOf(ship.getShots() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(270, 590, "Beam:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
+                .drawText(325, 590, String.valueOf(ship.getBlaster() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
                 .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
 
@@ -354,6 +367,7 @@ public class GameState {
         }
         drawBox(ufo.getHbx(), ufo.getHby(), ufo.getWidth(), ufo.getHeight());
         drawBox(ship.getHbx(), ship.getHby(), ship.getWidth(), ship.getHeight());
+        drawBox(beam.getHbx(), beam.getHby(), beam.getWidth(), beam.getHeight());
         for (int i = 0; i < 20; i++) {
             if (shield.getAlive(i)) {
                 drawBox(shield.getx(i), shield.gety(i), shield.getWidth(), shield.getHeight());
@@ -397,8 +411,12 @@ public class GameState {
     }
 
     public void blaster() {
-        blasters[0].init(ship.getx(), ship.gety(), timer);
-        beam.init(ship.getx(), ship.gety(), timer);
+        if (ship.getBlaster() > 0) {
+            blasters[0].init(ship.getx(), ship.gety(), timer);
+            beam.init(ship.getx(), ship.gety(), timer);
+            ship.loseBlaster();
+            music.playBeam();
+        }
     }
 
     public void alienShot() {
@@ -441,6 +459,21 @@ public class GameState {
                 }
                 ship.addCombo(10);
             }
+            if (ufo.collision(beam.getHbx(), beam.getHby(), beam.getWidth(), beam.getHeight())) {
+                for (int j = 0; j < 5; j++) {
+                    if (!powerups[j].onScreen()) {
+                        powerups[j].init(ufo.getx(), ufo.gety());
+                        break;                  //make sure only one powerup spawn every time.
+                    }
+                }
+                music.playInvaderKilled();
+                ship.addScore(10000);
+                ufo.kill();
+                if (ship.score > ship.highestScore) {
+                    ship.setHighestScore(ship.score);
+                }
+                ship.addCombo(10);
+            }
         }
     }
 
@@ -450,6 +483,15 @@ public class GameState {
                 if (aliens[j].collision(lasers[i].getHbx(), lasers[i].getHby(), lasers[i].getWidth(), lasers[i].getHeight())) {
                     music.playInvaderKilled();
                     lasers[i].destroyLaser();
+                    ship.addScore(1000);
+                    alienLeft--;
+                    if (ship.score > ship.highestScore) {
+                        ship.setHighestScore(ship.score);
+                    }
+                    ship.addCombo(1);
+                }
+                if (aliens[j].collision(beam.getHbx(), beam.getHby(), beam.getWidth(), beam.getHeight())) {
+                    music.playInvaderKilled();
                     ship.addScore(1000);
                     alienLeft--;
                     if (ship.score > ship.highestScore) {
@@ -474,7 +516,7 @@ public class GameState {
             if (ship.collision(powerups[i].getHbx(), powerups[i].getHby(), powerups[i].getWidth(), powerups[i].getHeight())) {
                 music.playPowerup();
                 if ((int) timer % 3 == 0) {
-                    ship.addCombo(10);      //blaster placeholder
+                    ship.addBlaster();      //blaster placeholder
                 } else if ((int) timer % 3 == 1) {
                     ship.addShots(1);
                 } else if ((int) timer % 3 == 2) {

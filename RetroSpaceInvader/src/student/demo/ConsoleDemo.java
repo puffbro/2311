@@ -60,7 +60,7 @@ public class ConsoleDemo {
          The Console instance provides a number of drawXXX() methods to paint elements on the game window. These methods also
          support method chaining.
          */
-        Console.getInstance().drawImage(100, 200, Console.loadImage("/student/demo/img/Blast_1.png"));                        // x=100, y=200
+        Console.getInstance().drawImage(100, 200, Console.loadImage("/student/demo/img/Beam_6.png"));                        // x=100, y=200
         Console.getInstance().drawImage(100, 400, img2);
         Console.getInstance().drawImage(100, 500, img3);
         Console.getInstance().drawCircle(500, 400, 128, 128, Color.GREEN)

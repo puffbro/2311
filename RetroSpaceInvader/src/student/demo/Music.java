@@ -13,6 +13,7 @@ public class Music {
     private AudioClip shoot;                // audio clip for spaceship shoot
     private AudioClip powerup;
     private AudioClip ufo;
+    private AudioClip beam;
     private boolean bgmIsPlaying;           // boolean represents the BGM start or not 
     private boolean bgmOn = true;           // true for bgm is ON
     private boolean effectSoundOn = true;   // true for effect sound is ON
@@ -29,6 +30,7 @@ public class Music {
         shoot = createAudioClip("/student/demo/music/shoot.wav");
         powerup = createAudioClip("/student/demo/music/powerup.wav");
         ufo = createAudioClip("/student/demo/music/ufo.wav");
+        beam = createAudioClip("/student/demo/music/beam.wav");
 
     }
 
@@ -132,7 +134,18 @@ public class Music {
             System.err.println("Audio Clip Not Found - (ufo)");
         }
     }
-        public void stopUFO() {
+
+    public void playBeam() {
+        try {
+            if (effectSoundOn) {
+                beam.play();
+            }
+        } catch (NullPointerException e) {      // print error message if the audio file not found
+            System.err.println("Audio Clip Not Found - (beam)");
+        }
+    }
+
+    public void stopUFO() {
         try {
             ufo.stop();
         } catch (NullPointerException e) {      // print error message if the audio file not found

@@ -40,13 +40,13 @@ public class Blaster {
             vely++;
         }
 
-        if (timePassed > 1.1) {
+        if (timePassed > 1.3) {
             vely++;
         } else if (timePassed > 0.7) {
             vely = 1;
         }
 
-        if (timePassed > 1.5) {
+        if (y > 700) {
             vely =0;            
         }
     }
