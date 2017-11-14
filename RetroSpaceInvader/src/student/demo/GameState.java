@@ -26,6 +26,7 @@ public class GameState {
     private Bullets[] bullets = new Bullets[10];
     private Powerup[] powerups = new Powerup[5];
     private Blaster[] blasters = new Blaster[10];
+    private Beam beam = new Beam();
     Ship ship = new Ship();
     private int stage = 1;
     private Shield shield = new Shield();
@@ -40,16 +41,19 @@ public class GameState {
 
     public void Frame() {
         frame = ++frame % 50;       //50 frame as a cycle
-        if (frame % 5 == 0) //50 frame = 1s (50fps)
-        {
-            timer += 0.1;                // + 1sec            
-        }
+
     }
 
     public void Time() {        //This only run when running() is running
         i = ++i % 20;           //Pause animation when not running
-        
 
+        if (frame % 5 == 0) //50 frame = 1s (50fps)
+        {
+            timer = timer * 10 + 1;                // + 0.1sec       
+            timer = timer / 10;             //to prevent error in double.
+            System.out.println(timer);
+
+        }
     }
 
     public void startMenu() {
@@ -116,12 +120,14 @@ public class GameState {
         }
 
         ufo.move();
+        beam.move(timer);
         for (int i = 0; i < 5; i++) {
             lasers[i].move(-10);           //-13 pixel every frame;
             powerups[i].move(2);
         }
         for (int i = 0; i < 10; i++) {
             bullets[i].bulletMove(3);
+            blasters[i].move(timer);
         }
         if ((int) timer % 10 == 0 && !ufo.onScreen()) {              //every 10s
             ufo.init();
@@ -134,7 +140,6 @@ public class GameState {
         checkloseCombo();
         alienSpeed();
         alienShot();
-        System.out.println(timer);
 
         drawRunning();
 
@@ -233,6 +238,7 @@ public class GameState {
         drawBlaster();
         drawBullets();
         drawPowerup();
+        drawBeam();
 
         Console.getInstance()
                 .drawText(540, 590, "Score:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
@@ -292,6 +298,10 @@ public class GameState {
         for (int j = 0; j < 10; j++) {
             Console.getInstance().drawImage(blasters[j].getx(), blasters[j].gety(), blasters[j].getimg(timer));
         }
+    }
+
+    public void drawBeam() {
+        Console.getInstance().drawImage(beam.getx(), beam.gety(), beam.getimg(timer));
     }
 
     public void drawBullets() {
@@ -388,6 +398,7 @@ public class GameState {
 
     public void blaster() {
         blasters[0].init(ship.getx(), ship.gety(), timer);
+        beam.init(ship.getx(), ship.gety(), timer);
     }
 
     public void alienShot() {
