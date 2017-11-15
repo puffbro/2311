@@ -218,7 +218,7 @@ public class GameDemo extends Game {
 
         switch (state) {
             case MENU:
-                if (checkMouse(e, 360, 205, 600, 260)) {    //Start button
+                if (checkMouse(e, 360, 305, 600, 360)) {    //Start button
                     gameState.retry();
                     state = State.STAGE;
                 }

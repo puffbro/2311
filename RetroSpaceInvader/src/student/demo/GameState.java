@@ -19,6 +19,9 @@ import java.util.Random;
 public class GameState {
 
     private Image logo = Console.loadImage("/student/demo/img/logo.png");
+    private Image pwr1 = Console.loadImage("/student/demo/img/powerup_2.png");
+    private Image pwr2 = Console.loadImage("/student/demo/img/powerup_3.png");
+    private Image pwr3 = Console.loadImage("/student/demo/img/powerup_1.png");
     private Music music = new Music();
     private UFO ufo = new UFO();
     private Alien[] aliens = new Alien[55];
@@ -59,16 +62,26 @@ public class GameState {
     public void startMenu() {
         music.stopBGM();
         Console.getInstance()
-                .drawImage(280, 10, logo)
-                .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 250, "New Game", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
+                .drawImage(280, 30, logo)
+                .drawImage(300, 480, pwr1)
+                .drawText(350, 500, "Max Laser +1 (5 Max)", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawImage(300, 520, pwr2)
+                .drawText(350, 540, "HP +1", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawImage(300, 560, pwr3)
+                .drawText(350, 580, "Ghaster Blaster +1", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
+                .drawText(380, 350, "New Game", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
+                .drawText(20, 500, "Left/Right arrow to move", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawText(20, 520, "Space to shoot", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawText(20, 540, "B to summon Ghaster Blaster", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawText(20, 560, "Esc to pause/unpause", new Font("Agency FB", Font.BOLD, 15), Color.WHITE);
 
         if (dev) {
             Console.getInstance()
-                    .drawText(770, 590, "dev mode enabled", new Font("Comic Sans MS", Font.BOLD, 15), Color.WHITE);
+                    .drawText(770, 590, "dev mode enabled", new Font("Agency FB", Font.BOLD, 15), Color.WHITE);
         } else {
             Console.getInstance()
-                    .drawText(770, 590, "F3 to toggle dev mode", new Font("Comic Sans MS", Font.BOLD, 15), Color.WHITE);
+                    .drawText(770, 590, "F3 to toggle dev mode", new Font("Agency FB", Font.BOLD, 15), Color.WHITE);
         }
     }
 
@@ -195,22 +208,22 @@ public class GameState {
         drawRunning();
         Console.getInstance()
                 .drawRectangle(360, 105, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 150, "Resume", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawText(380, 150, "Resume", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawText(380, 250, "Retry", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN);
+                .drawText(380, 350, "Main Menu", new Font("Agency FB", Font.BOLD, 40), Color.CYAN);
         if (dev) {
             Console.getInstance()
                     .drawRectangle(23, 32, 130, 170, Color.DARK_GRAY, 0)
-                    .drawText(30, 50, "H - Toggle Hit box", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 70, "W - Win", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 90, "L - Lose", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 110, "N - Next Stage", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 130, "E - Kill ship", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 150, "A - Life + 1", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 170, "S - Max shot +1", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 190, "D - Beam +1", new Font("Comic Sans MS", Font.PLAIN, 12), Color.MAGENTA);
+                    .drawText(30, 50, "H - Toggle Hit box", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 70, "W - Win", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 90, "L - Lose", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 110, "N - Next Stage", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 130, "E - Kill ship", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 150, "A - Life + 1", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 170, "S - Max shot +1", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
+                    .drawText(30, 190, "D - Beam +1", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA);
         }
     }
 
@@ -220,11 +233,11 @@ public class GameState {
         music.stopBGM();
         Console.getInstance()
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 250, "New Game", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawText(380, 250, "New Game", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
-                .drawText(350, 100, "You Win!", new Font("Comic Sans MS", Font.BOLD, 60), Color.YELLOW)
-                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.WHITE);
+                .drawText(380, 350, "Main Menu", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
+                .drawText(350, 100, "You Win!", new Font("Agency FB", Font.BOLD, 60), Color.YELLOW)
+                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Agency FB", Font.BOLD, 40), Color.WHITE);
 
     }
 
@@ -233,11 +246,11 @@ public class GameState {
         drawRunning();
         Console.getInstance()
                 .drawRectangle(360, 205, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 250, "Retry", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
+                .drawText(380, 250, "Retry", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
-                .drawText(380, 350, "Main Menu", new Font("Comic Sans MS", Font.BOLD, 40), Color.CYAN)
-                .drawText(300, 100, "You're Dead", new Font("Comic Sans MS", Font.BOLD, 60), Color.RED)
-                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 40), Color.RED);
+                .drawText(380, 350, "Main Menu", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
+                .drawText(300, 100, "You're Dead", new Font("Agency FB", Font.BOLD, 60), Color.RED)
+                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Agency FB", Font.BOLD, 40), Color.RED);
     }
 
     public void drawRunning() {
@@ -254,17 +267,17 @@ public class GameState {
         drawBeam();
 
         Console.getInstance()
-                .drawText(540, 590, "Score:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(400, 590, "Combo:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(270, 590, "Beam:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(325, 590, String.valueOf(ship.getBlaster() + "X"), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(730, 590, "HighestScore:", new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE)
-                .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Comic Sans MS", Font.BOLD, 18), Color.WHITE);
+                .drawText(540, 590, "Score:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(400, 590, "Combo:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(200, 590, "Ghaster Blaster:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(345, 590, String.valueOf(ship.getBlaster() + "X"), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(730, 590, "HighestScore:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Agency FB", Font.BOLD, 18), Color.WHITE);
 
         if (dev) {
-            Console.getInstance().drawText(750, 20, "dev mode enabled, pause to see hotkeys", new Font("Comic Sans MS", Font.PLAIN, 13), Color.MAGENTA);
+            Console.getInstance().drawText(750, 20, "dev mode enabled, pause to see hotkeys", new Font("Agency FB", Font.PLAIN, 13), Color.MAGENTA);
             if (Hitbox) {
                 drawHitbox();
             }
@@ -274,7 +287,7 @@ public class GameState {
 
     public void drawStage() {
         Console.getInstance()
-                .drawText(390, 280, String.valueOf("Stage" + stage), new Font("Comic Sans MS", Font.BOLD, 50), Color.WHITE);
+                .drawText(390, 280, String.valueOf("Stage" + stage), new Font("Agency FB", Font.BOLD, 50), Color.WHITE);
     }
 
     public void drawAlien() {
