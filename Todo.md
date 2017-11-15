@@ -6,15 +6,16 @@ Working on:
   
 
 Recent Updates:       
-Blaster powerup.				
-Bigger bullets.		
-Score and combo last till stage 2.			 
+Change fonts.		
+Added instructions.		
+Speed up powerup cycle. 	
+Moved shields up 20 pixel.			
+Improved UI.		
 
-ToDo:       
-Ghaster Blaster.    
+ToDo:        
 
 Extra:    
-Sans boss fight.   
+Sans boss fight.(Probably dont have enough time.)   
 
 Done:   
 At least one wave 5x11 alien.  

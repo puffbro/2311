@@ -22,6 +22,7 @@ public class GameState {
     private Image pwr1 = Console.loadImage("/student/demo/img/powerup_2.png");
     private Image pwr2 = Console.loadImage("/student/demo/img/powerup_3.png");
     private Image pwr3 = Console.loadImage("/student/demo/img/powerup_1.png");
+    private Image alien = Console.loadImage("/student/demo/img/invader64_1.png");
     private Music music = new Music();
     private UFO ufo = new UFO();
     private Alien[] aliens = new Alien[55];
@@ -40,6 +41,7 @@ public class GameState {
     private int speed;
     private boolean Hitbox = false;
     private boolean dev = false;
+    private int rand;
     Random r = new Random();
 
     public void Frame() {
@@ -62,26 +64,37 @@ public class GameState {
     public void startMenu() {
         music.stopBGM();
         Console.getInstance()
+                .drawText(380, 460, "PowerUps", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
                 .drawImage(280, 30, logo)
-                .drawImage(300, 480, pwr1)
-                .drawText(350, 500, "Max Laser +1 (5 Max)", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
-                .drawImage(300, 520, pwr2)
-                .drawText(350, 540, "HP +1", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
-                .drawImage(300, 560, pwr3)
-                .drawText(350, 580, "Ghaster Blaster +1", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
+                .drawImage(350, 480, pwr1)
+                .drawText(400, 500, "Max Laser +1 (5 Max)", new Font("Agency FB", Font.BOLD, 20), Color.WHITE)
+                .drawImage(350, 520, pwr2)
+                .drawText(400, 540, "Life +1", new Font("Agency FB", Font.BOLD, 20), Color.WHITE)
+                .drawImage(350, 560, pwr3)
+                .drawText(400, 580, "Ghaster Blaster +1", new Font("Agency FB", Font.BOLD, 20), Color.WHITE)
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 350, "New Game", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
-                .drawText(20, 500, "Left/Right arrow to move", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
-                .drawText(20, 520, "Space to shoot", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
-                .drawText(20, 540, "B to summon Ghaster Blaster", new Font("Agency FB", Font.BOLD, 15), Color.WHITE)
-                .drawText(20, 560, "Esc to pause/unpause", new Font("Agency FB", Font.BOLD, 15), Color.WHITE);
+                .drawText(50, 460, "Controls", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(20, 500, "L/R arrows - move", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(20, 520, "Space - Shoot laser", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(20, 540, "B       - Summon Ghaster Blaster", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(20, 560, "Esc    - Pause/unpause", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(750, 460, "Scores", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(750, 510, "+10000", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(750, 560, "+1000", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(850, 460, "Combo", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(850, 510, "+10", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(850, 560, "+1", new Font("Agency FB", Font.BOLD, 25), Color.WHITE)
+                .drawText(670, 590, "*You lose your combo if you miss your shot", new Font("Agency FB", Font.BOLD, 16), Color.WHITE)
+                .drawImage(650, 470, ufo.getimg(1))
+                .drawImage(660, 520, alien);
 
         if (dev) {
             Console.getInstance()
-                    .drawText(770, 590, "dev mode enabled", new Font("Agency FB", Font.BOLD, 15), Color.WHITE);
+                    .drawText(20, 590, "Dev mode enabled", new Font("Agency FB", Font.BOLD, 16), Color.MAGENTA);
         } else {
             Console.getInstance()
-                    .drawText(770, 590, "F3 to toggle dev mode", new Font("Agency FB", Font.BOLD, 15), Color.WHITE);
+                    .drawText(20, 590, "F3 to toggle Dev mode", new Font("Agency FB", Font.BOLD, 16), Color.WHITE);
         }
     }
 
@@ -216,14 +229,14 @@ public class GameState {
         if (dev) {
             Console.getInstance()
                     .drawRectangle(23, 32, 130, 170, Color.DARK_GRAY, 0)
-                    .drawText(30, 50, "H - Toggle Hit box", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 70, "W - Win", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 90, "L - Lose", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 110, "N - Next Stage", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 130, "E - Kill ship", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 150, "A - Life + 1", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 170, "S - Max shot +1", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA)
-                    .drawText(30, 190, "D - Beam +1", new Font("Agency FB", Font.PLAIN, 12), Color.MAGENTA);
+                    .drawText(30, 50, "H - Toggle Hit box", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 70, "W - Win", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 90, "L - Lose", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 110, "N - Next Stage", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 130, "E - Kill ship", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 150, "A - Life + 1", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 170, "S - Max shot +1", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA)
+                    .drawText(30, 190, "D - Ghaster Blaster +1", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA);
         }
     }
 
@@ -236,8 +249,8 @@ public class GameState {
                 .drawText(380, 250, "New Game", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 350, "Main Menu", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
-                .drawText(350, 100, "You Win!", new Font("Agency FB", Font.BOLD, 60), Color.YELLOW)
-                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Agency FB", Font.BOLD, 40), Color.WHITE);
+                .drawText(400, 100, "You Win!", new Font("Agency FB", Font.BOLD, 60), Color.YELLOW)
+                .drawText(350, 170, String.format("Your Score: " + ship.getScore()), new Font("Agency FB", Font.BOLD, 40), Color.WHITE);
 
     }
 
@@ -249,8 +262,8 @@ public class GameState {
                 .drawText(380, 250, "Retry", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
                 .drawRectangle(360, 305, 250, 60, Color.DARK_GRAY, 20)
                 .drawText(380, 350, "Main Menu", new Font("Agency FB", Font.BOLD, 40), Color.CYAN)
-                .drawText(300, 100, "You're Dead", new Font("Agency FB", Font.BOLD, 60), Color.RED)
-                .drawText(300, 170, String.format("Your Score: " + ship.getScore()), new Font("Agency FB", Font.BOLD, 40), Color.RED);
+                .drawText(370, 100, "You're Dead", new Font("Agency FB", Font.BOLD, 60), Color.RED)
+                .drawText(350, 170, String.format("Your Score: " + ship.getScore()), new Font("Agency FB", Font.BOLD, 40), Color.RED);
     }
 
     public void drawRunning() {
@@ -265,19 +278,19 @@ public class GameState {
         drawBullets();
         drawPowerup();
         drawBeam();
+        drawUIBlaster();
+        drawUIShots();
 
         Console.getInstance()
-                .drawText(540, 590, "Score:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
-                .drawText(600, 590, String.format("%09d", ship.getScore()), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
-                .drawText(400, 590, "Combo:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
-                .drawText(465, 590, String.valueOf(ship.getCombo() + "X"), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
-                .drawText(200, 590, "Ghaster Blaster:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
-                .drawText(345, 590, String.valueOf(ship.getBlaster() + "X"), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
-                .drawText(730, 590, "HighestScore:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(570, 590, "Score:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(630, 590, String.format("%09d", ship.getScore()), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(430, 590, "Combo:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(495, 590, String.valueOf(ship.getCombo() + "X"), new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
+                .drawText(750, 590, "HighScore:", new Font("Agency FB", Font.BOLD, 18), Color.WHITE)
                 .drawText(860, 590, String.format("%09d", ship.getHighestScore()), new Font("Agency FB", Font.BOLD, 18), Color.WHITE);
 
         if (dev) {
-            Console.getInstance().drawText(750, 20, "dev mode enabled, pause to see hotkeys", new Font("Agency FB", Font.PLAIN, 13), Color.MAGENTA);
+            Console.getInstance().drawText(800, 20, "dev mode enabled, pause to see hotkeys", new Font("Agency FB", Font.PLAIN, 15), Color.MAGENTA);
             if (Hitbox) {
                 drawHitbox();
             }
@@ -287,7 +300,7 @@ public class GameState {
 
     public void drawStage() {
         Console.getInstance()
-                .drawText(390, 280, String.valueOf("Stage" + stage), new Font("Agency FB", Font.BOLD, 50), Color.WHITE);
+                .drawText(430, 280, String.valueOf("Stage" + stage), new Font("Agency FB", Font.BOLD, 50), Color.WHITE);
     }
 
     public void drawAlien() {
@@ -338,15 +351,36 @@ public class GameState {
 
     public void drawPowerup() {
         for (int i = 0; i < 5; i++) {
-            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg((int) timer % 3));
+            Console.getInstance().drawImage(powerups[i].getx(), powerups[i].gety(), powerups[i].getimg( (int)(timer*4) % 3));
         }
     }
 
     public void drawLife() {
-        for (int i = 0; i < ship.getLife() - 1; i++) {
-            Console.getInstance().drawImage(10 + i * 30, 570, ship.getimg2());
+        if (ship.getLife() <= 5) {
+            for (int i = 0; i < ship.getLife() - 1; i++) {
+                Console.getInstance().drawImage(10 + i * 30, 570, ship.getimg2());
+            }
+        }else if(ship.getLife() > 5){
+            Console.getInstance()
+                    .drawImage(10, 570, ship.getimg2())
+                    .drawText(40, 590, " x "+ String.valueOf(ship.getLife()-1) , new Font("Agency FB", Font.BOLD, 20), Color.WHITE);
         }
     }
+    
+    public void drawUIBlaster(){
+
+            Console.getInstance()
+                    .drawImage(150, 568, pwr3)
+                    .drawText(180, 590, " x "+ ship.getBlaster() , new Font("Agency FB", Font.BOLD, 20), Color.WHITE);
+        
+    }
+    
+    public void drawUIShots(){
+            Console.getInstance()
+                    .drawImage(250, 568, pwr1)
+                    .drawText(280, 590, " x "+ ship.getShots() , new Font("Agency FB", Font.BOLD, 20), Color.WHITE);
+        }
+    
 
     public void drawBox(int x, int y, int w, int h) {
 
@@ -528,11 +562,11 @@ public class GameState {
         for (int i = 0; i < 5; i++) {
             if (ship.collision(powerups[i].getHbx(), powerups[i].getHby(), powerups[i].getWidth(), powerups[i].getHeight())) {
                 music.playPowerup();
-                if ((int) timer % 3 == 0) {
-                    ship.addBlaster();      //blaster placeholder
-                } else if ((int) timer % 3 == 1) {
+                if (((int)(timer*4) % 3) == 0) {
+                    ship.addBlaster();      
+                } else if (((int)(timer*4) % 3) == 1) {
                     ship.addShots(1);
-                } else if ((int) timer % 3 == 2) {
+                } else if (((int)(timer*4) % 3) == 2) {
                     ship.addLife();
                 }
                 powerups[i].destroyPowerup();
@@ -576,13 +610,13 @@ public class GameState {
             }
         } else if (stage == 2) {
             if (alienLeft >= 30) {
-                speed = 2;
-            } else if (alienLeft >= 15 && alienLeft < 30) {
                 speed = 3;
-            } else if (alienLeft >= 5 && alienLeft < 15) {
+            } else if (alienLeft >= 15 && alienLeft < 30) {
                 speed = 4;
-            } else if (alienLeft >= 0 && alienLeft < 5) {
+            } else if (alienLeft >= 5 && alienLeft < 15) {
                 speed = 5;
+            } else if (alienLeft >= 0 && alienLeft < 5) {
+                speed = 6;
             }
         }
         for (int i = 0; i < 55; i++) {

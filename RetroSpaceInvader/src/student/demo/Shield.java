@@ -31,7 +31,7 @@ public class Shield {
 
     public void initshield() {
         x[0] = 120;
-        y[0] = 470;
+        y[0] = 450;
         alive[0] = true;
         for (int i = 1; i < size; i++) {
             alive[i] = true;
@@ -41,15 +41,15 @@ public class Shield {
                 x[i] = 120;
             }
             if (i <= 3) {
-                y[i] = 470;
+                y[i] = 450;
             } else if (i < 8) {
-                y[i] = 480;
+                y[i] = 460;
             } else if (i < 12) {
-                y[i] = 490;
+                y[i] = 470;
             } else if (i < 16) {
-                y[i] = 500;
+                y[i] = 480;
             } else if (i < 20) {
-                y[i] = 510;
+                y[i] = 490;
             }
         }
     }
