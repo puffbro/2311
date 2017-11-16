@@ -35,6 +35,7 @@ public class GameDemo extends Game {
         WIN,
         LOSE,
         STAGE,
+        SANS,
     }
     private static State state;
 
@@ -94,9 +95,14 @@ public class GameDemo extends Game {
                 break;
 
             case STAGE:
-                if (gameState.stage()) {
+                if (gameState.stage() == "true") {
                     state = state.RUNNING;
+                } else if (gameState.stage() == "sans") {
+                    state = state.SANS;
                 }
+                break;
+            case SANS:
+                gameState.sans();
                 break;
 
             case RUNNING:
@@ -130,22 +136,22 @@ public class GameDemo extends Game {
     protected void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                if (state == state.RUNNING) {
+                if (state == state.RUNNING || state == state.SANS) {
                     gameState.moveL();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (state == state.RUNNING) {
+                if (state == state.RUNNING || state == state.SANS) {
                     gameState.moveR();
                 }
                 break;
             case KeyEvent.VK_SPACE:
-                if (state == state.RUNNING) {
+                if (state == state.RUNNING || state == state.SANS) {
                     gameState.shoot();
                 }
                 break;
             case KeyEvent.VK_B:
-                if (state == state.RUNNING) {
+                if (state == state.RUNNING || state == state.SANS) {
                     gameState.blaster();
                 }
                 break;

@@ -83,7 +83,10 @@ public class Shield {
     public int getHeight(){
         return height;
     }
-
+    
+    public void kill(int i){
+        alive[i] = false;
+    }
     public boolean getAlive(int a) {
         return alive[a];
     }

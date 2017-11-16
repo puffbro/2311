@@ -10,6 +10,10 @@ public class UFO {
     private Image[] images = {img1, img2};
     private int x;
     private int y;
+    private int initx;
+    private int inity;
+    private int velx;
+    private int vely = 8;
     private int hbx;
     private int hby;
     private int height = 60;
@@ -22,8 +26,29 @@ public class UFO {
         alive = true;
     }
 
+    public void init(int a, int b) {
+        x = a;
+        y = b;
+        initx = a;
+        inity = b;
+        alive = true;
+    }
+
     public void move() {
         x += 3;
+    }
+
+    public void sansMove() {
+        if (y > inity) {
+            vely--;
+        } else if (y < inity) {
+            vely++;
+        }
+
+        velx = 3;
+
+        x += velx;
+        y += vely;
     }
 
     public boolean collision(int a, int b, int w, int h) {
@@ -81,5 +106,6 @@ public class UFO {
 
     public void kill() {
         x = 2000;
+        velx = 0;
     }
 }

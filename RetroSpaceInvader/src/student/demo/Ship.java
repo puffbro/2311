@@ -14,6 +14,7 @@ public class Ship {
 
     private Image img = Console.loadImage("/student/demo/img/spaceship_1.png");
     private Image img2 = Console.loadImage("/student/demo/img/shiplife.png");
+    private Image blank = Console.loadImage("/student/demo/img/null.png");
     private int x;
     private int y;
     private int life;

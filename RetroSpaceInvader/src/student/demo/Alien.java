@@ -10,7 +10,10 @@ public class Alien {
     private Image[] images = {img1, img2};
     private int x;
     private int y;
+    private int velx = 0;
+    private int vely = 10;
     private int initx;          //The x cood of its initial spawn point.
+    private int inity;
     private boolean right = true;
     private int size = 55;
     private int height = 33;
@@ -25,6 +28,8 @@ public class Alien {
         this.x = x;
         initx = this.x;
         this.y = y;
+        inity = y;
+        initx = x;
     }
 
     public void move() {
@@ -44,6 +49,19 @@ public class Alien {
             right = false;
             y += 25;
         }
+    }
+
+    public void sansMove() {
+        if (y > inity) {
+            vely--;
+        } else if (y < inity) {
+            vely++;
+        }
+
+        velx = 1;
+
+        x += velx;
+        y += vely;
     }
 
     public boolean collision(int a, int b, int w, int h) {
